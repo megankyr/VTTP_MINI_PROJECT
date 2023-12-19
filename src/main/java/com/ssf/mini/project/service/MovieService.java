@@ -30,14 +30,11 @@ public class MovieService {
 
     private List<GenreCode> codes = null;
 
-    // to retrieve the list of movies under a genre
+    // to retrieve the list of movies by genre
     public List<Movie> getMovies(String genre) {
 
         String url = UriComponentsBuilder
                 .fromUriString("https://api.themoviedb.org/3/discover/movie")
-                .queryParam("language", "en-US")
-                .queryParam("sort_by", "popularity.desc")
-                .queryParam("page", "1")
                 .queryParam("with_genres", genre)
                 .toUriString();
 
@@ -63,7 +60,7 @@ public class MovieService {
         for (JsonValue movieValue : movies) {
             JsonObject movieObject = (JsonObject) movieValue;
 
-            String title = movieObject.getString("original_title");
+            String title = movieObject.getString("title");
             String releaseDate = movieObject.getString("release_date");
             String overview = movieObject.getString("overview");
 
@@ -93,14 +90,17 @@ public class MovieService {
             String payload = resp.getBody();
 
             JsonReader reader = Json.createReader(new StringReader(payload));
-            JsonArray arr = reader.readArray();
+            JsonObject result = reader.readObject();
+            JsonArray genres = result.getJsonArray("genres");
 
             List<GenreCode> genreCodes = new ArrayList<>();
-            for (JsonValue jsonValue : arr) {
-                JsonObject jsonObject = jsonValue.asJsonObject();
-                int code = jsonObject.getInt("id");
-                String name = jsonObject.getString("name");
-                genreCodes.add(new GenreCode(code, name));
+            for (JsonValue genreValue : genres) {
+                JsonObject genreObject = (JsonObject) genreValue;
+                Integer code = genreObject.getInt("id");
+                String name = genreObject.getString("name");
+
+                GenreCode genreCode = new GenreCode(code, name);
+                genreCodes.add(genreCode);
             }
 
             Collections.sort(genreCodes, Comparator.comparing(GenreCode::name));
@@ -111,8 +111,3 @@ public class MovieService {
         return codes;
     }
 }
-
-// public record Movie(String title, String releaseDate, String overview) {
-// https://developers.themoviedb.org/3/discover/movie-discover
-// .url("https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc")
-// https://api.themoviedb.org/3/discover/movie?api_key=THE_KEY&language=en-US&sort_by=release_date.desc&page=1&with_genres=35

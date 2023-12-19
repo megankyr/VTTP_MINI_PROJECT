@@ -17,7 +17,7 @@ import com.ssf.mini.project.service.MovieService;
 public class MovieController {
 
     @Autowired
-    MovieService movieService;
+    private MovieService movieService;
 
     @GetMapping("/genres")
     public ModelAndView getGenres() {
@@ -27,7 +27,7 @@ public class MovieController {
     }
 
     @GetMapping("/movies")
-    public ModelAndView getMovies(@RequestParam String genre) {
+    public ModelAndView getMovieData(@RequestParam String genre) {
         ModelAndView mav = new ModelAndView("movies");
         List<Movie> movies = movieService.getMovies(genre);
         mav.addObject("genre", genre);
