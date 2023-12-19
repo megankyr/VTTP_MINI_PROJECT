@@ -63,8 +63,10 @@ public class MovieService {
             String title = movieObject.getString("title");
             String releaseDate = movieObject.getString("release_date");
             String overview = movieObject.getString("overview");
+            String imagePath = movieObject.getString("poster_path");
+            String imageUrl = "http://image.tmdb.org/t/p/w500" + imagePath;
 
-            Movie movie = new Movie(title, releaseDate, overview);
+            Movie movie = new Movie(title, releaseDate, overview, imageUrl);
             movieList.add(movie);
 
         }
@@ -75,7 +77,6 @@ public class MovieService {
         if (codes == null) {
             String url = UriComponentsBuilder
                     .fromUriString("https://api.themoviedb.org/3/genre/movie/list")
-                    .queryParam("language", "en")
                     .toUriString();
 
             RequestEntity<Void> req = RequestEntity
