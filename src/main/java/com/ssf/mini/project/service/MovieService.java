@@ -106,20 +106,21 @@ public class MovieService {
         private List<Movie> processMovies(JsonArray movies) {
                 List<Movie> movieList = new ArrayList<>();
                 for (JsonValue movieValue : movies) {
+                    if (movieValue.getValueType() == JsonValue.ValueType.OBJECT) {
                         JsonObject movieObject = (JsonObject) movieValue;
-
-                        String title = movieObject.getString("title");
-                        String releaseDate = movieObject.getString("release_date");
-                        String overview = movieObject.getString("overview");
-                        String imagePath = movieObject.getString("poster_path");
+            
+                        String title = movieObject.getString("title", "");
+                        String releaseDate = movieObject.getString("release_date", "");
+                        String overview = movieObject.getString("overview", "");
+                        String imagePath = movieObject.getString("poster_path", "");
                         String imageUrl = "http://image.tmdb.org/t/p/w500" + imagePath;
-
+            
                         Movie movie = new Movie(title, releaseDate, overview, imageUrl);
                         movieList.add(movie);
-
+                    }
                 }
                 return movieList;
-        }
+            }
 
         // retrieve genre codes from API
         public List<GenreCode> getGenreCode() {
