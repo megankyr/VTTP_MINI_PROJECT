@@ -1,6 +1,11 @@
 package com.ssf.mini.project.service;
 
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,28 +35,38 @@ public class MovieService {
 
         // retrieve the list of movies by title
         public List<Movie> getMoviesByTitle(String title) {
+                try {
+                        // encode url to accept parameters of multiple words
+                        String encodedTitle = URLEncoder.encode(title, StandardCharsets.UTF_8.toString());
 
-                String url = UriComponentsBuilder
-                                .fromUriString("https://api.themoviedb.org/3/search/movie")
-                                .queryParam("query", title)
-                                .toUriString();
+                        String url = UriComponentsBuilder
+                                        .fromUriString("https://api.themoviedb.org/3/search/movie")
+                                        .queryParam("query", encodedTitle)
+                                        .toUriString();
 
-                RequestEntity<Void> req = RequestEntity.get(url)
-                                .header("Authorization",
-                                                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
-                                .build();
+                        RequestEntity<Void> req = RequestEntity.get(url)
+                                        .header("Authorization",
+                                                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                        .build();
 
-                RestTemplate template = new RestTemplate();
-                ResponseEntity<String> resp = template.exchange(req, String.class);
+                        RestTemplate template = new RestTemplate();
+                        ResponseEntity<String> resp = template.exchange(req, String.class);
 
-                String payload = resp.getBody();
-                JsonReader reader = Json.createReader(new StringReader(payload));
-                JsonObject result = reader.readObject();
-                JsonArray movies = result.getJsonArray("results");
+                        String payload = resp.getBody();
+                        JsonReader reader = Json.createReader(new StringReader(payload));
+                        JsonObject result = reader.readObject();
+                        JsonArray movies = result.getJsonArray("results");
 
-                System.out.println(url);
-                return processMovies(movies);
+                        System.out.println(url);
+                        System.out.println(payload);
 
+                        return processMovies(movies);
+
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+
+                return null;
         }
 
         // retrieve the list of movies by genre
