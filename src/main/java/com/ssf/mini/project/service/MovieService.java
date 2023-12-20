@@ -28,12 +28,35 @@ public class MovieService {
     private List<GenreCode> gcodes = null;
     private List<CountryCode> ccodes = null;
 
-    // to retrieve the list of movies by genre and country
-    public List<Movie> getMovies(String genre, String country) {
+    // retrieve the list of movies by genre
+    public List<Movie> getMoviesByGenre(String genre) {
 
         String url = UriComponentsBuilder
                 .fromUriString("https://api.themoviedb.org/3/discover/movie")
                 .queryParam("with_genres", genre)
+                .toUriString();
+
+        RequestEntity<Void> req = RequestEntity.get(url)
+                .header("Authorization",
+                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                .build();
+
+        RestTemplate template = new RestTemplate();
+        ResponseEntity<String> resp = template.exchange(req, String.class);
+
+        String payload = resp.getBody();
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject result = reader.readObject();
+        JsonArray movies = result.getJsonArray("results");
+
+        return processMovies(movies);
+    }
+
+    // retrieve the list of movies by country
+    public List<Movie> getMoviesByCountry(String country) {
+
+        String url = UriComponentsBuilder
+                .fromUriString("https://api.themoviedb.org/3/discover/movie")
                 .queryParam("with_origin_country", country)
                 .toUriString();
 
@@ -53,7 +76,7 @@ public class MovieService {
         return processMovies(movies);
     }
 
-    // to append fields to the movies retrieved
+    // process the list of movies by assigning them fields
     private List<Movie> processMovies(JsonArray movies) {
         List<Movie> movieList = new ArrayList<>();
         for (JsonValue movieValue : movies) {
@@ -72,6 +95,7 @@ public class MovieService {
         return movieList;
     }
 
+    // retrieve genre codes from API
     public List<GenreCode> getGenreCode() {
         if (gcodes == null) {
             String url = UriComponentsBuilder
@@ -111,6 +135,7 @@ public class MovieService {
         return gcodes;
     }
 
+    // retrieve country codes from API
     public List<CountryCode> getCountryCode() {
         if (ccodes == null) {
             String url = UriComponentsBuilder

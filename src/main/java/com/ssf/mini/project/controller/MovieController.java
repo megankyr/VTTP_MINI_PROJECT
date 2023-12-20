@@ -3,7 +3,6 @@ package com.ssf.mini.project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,25 +19,33 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @GetMapping("/index")
-    public ModelAndView getIndex() {
-        ModelAndView mav = new ModelAndView("index");
+    @GetMapping("search/genre")
+    public ModelAndView searchGenre() {
+        ModelAndView mav = new ModelAndView("genre");
         mav.addObject("gcodes", movieService.getGenreCode());
+        return mav;
+    }
+
+    @GetMapping("search/country")
+    public ModelAndView searchCountry() {
+        ModelAndView mav = new ModelAndView("country");
         mav.addObject("ccodes", movieService.getCountryCode());
         return mav;
     }
 
-    @GetMapping("/movies")
-    public ModelAndView getMovieData(@RequestParam MultiValueMap<String, String> queryParams) {
-        ModelAndView mav = new ModelAndView("movies");
-        String genre = queryParams.getFirst("genre");
-        String country = queryParams.getFirst("country");
-        List<Movie> movies = movieService.getMovies(genre, country);
-        mav.addObject("genre", genre);
-        mav.addObject("country",country);
-        mav.addObject("movies", movies);
-
+    @GetMapping("/movies/genre")
+    public ModelAndView getMovieByGenre(@RequestParam String genre){
+        ModelAndView mav = new ModelAndView("genremovies");
+        List<Movie> genreMovies = movieService.getMoviesByGenre(genre);
+        mav.addObject("movies", genreMovies);
         return mav;
     }
 
+    @GetMapping("/movies/country")
+    public ModelAndView getMovieByCountry(@RequestParam String country){
+        ModelAndView mav = new ModelAndView("countrymovies");
+        List<Movie> countryMovies = movieService.getMoviesByCountry(country);
+        mav.addObject("movies", countryMovies);
+        return mav;
+    }
 }

@@ -3,24 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index</title>
+    <title>Search by Country</title>
   </head>
   <body>
-    <form method="GET" data-th-action="@{/movies}">
+    <form method="GET" data-th-action="@{/movies/country}">
       <table>
-        <tr>
-          <td>Genre</td>
-          <td>
-            <select name="genre">
-              <option
-                data-th-each="gcode : ${gcodes}"
-                data-th-value="${gcode.code}"
-                data-th-text="${gcode.name}"
-              ></option>
-            </select>
-          </td>
-        </tr>
-        <tr>
           <td>Country</td>
           <td>
             <select name="country">

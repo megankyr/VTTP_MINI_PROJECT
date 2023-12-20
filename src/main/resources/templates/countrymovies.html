@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Country Movies</title>
+  </head>
+  <body>
+    <div data-th-if="${#lists.isEmpty(movies)}">
+      <p>
+        No movies found~
+      </p>
+    </div>
+    <div data-th-unless="${#lists.isEmpty(movies)}">
+      <article data-th-each="movie : ${movies}">
+        <h3 data-th-text="${movie.title}"></h3>
+        <div>Release Date: <span data-th-text="${movie.releaseDate}"></span></div>
+        <div>
+          <p data-th-text="${movie.overview}"></p>
+        </div>
+        <div>
+          <img data-th-src="${movie.imageUrl}" width="250px" />
+        </div>
+      </article>
+    </div>
+  </body>
+</html>

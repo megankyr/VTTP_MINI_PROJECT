@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search by Genre</title>
+  </head>
+  <body>
+    <form method="GET" data-th-action="@{/movies/genre}">
+      <table>
+        <tr>
+          <td>Genre</td>
+          <td>
+            <select name="genre">
+              <option
+                data-th-each="gcode : ${gcodes}"
+                data-th-value="${gcode.code}"
+                data-th-text="${gcode.name}"
+              ></option>
+            </select>
+          </td>
+        </tr>
+        <td>
+          <button type="submit">Search</button>
+        </td>
+      </table>
+    </form>
+  </body>
+</html>
