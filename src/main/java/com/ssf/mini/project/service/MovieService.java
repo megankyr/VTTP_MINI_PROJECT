@@ -25,149 +25,175 @@ import jakarta.json.JsonValue;
 @Service
 public class MovieService {
 
-    private List<GenreCode> gcodes = null;
-    private List<CountryCode> ccodes = null;
+        private List<GenreCode> gcodes = null;
+        private List<CountryCode> ccodes = null;
 
-    // retrieve the list of movies by genre
-    public List<Movie> getMoviesByGenre(String genre) {
+        // retrieve the list of movies by title
+        public List<Movie> getMoviesByTitle(String title) {
 
-        String url = UriComponentsBuilder
-                .fromUriString("https://api.themoviedb.org/3/discover/movie")
-                .queryParam("with_genres", genre)
-                .toUriString();
+                String url = UriComponentsBuilder
+                                .fromUriString("https://api.themoviedb.org/3/search/movie")
+                                .queryParam("query", title)
+                                .toUriString();
 
-        RequestEntity<Void> req = RequestEntity.get(url)
-                .header("Authorization",
-                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
-                .build();
+                RequestEntity<Void> req = RequestEntity.get(url)
+                                .header("Authorization",
+                                                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                .build();
 
-        RestTemplate template = new RestTemplate();
-        ResponseEntity<String> resp = template.exchange(req, String.class);
+                RestTemplate template = new RestTemplate();
+                ResponseEntity<String> resp = template.exchange(req, String.class);
 
-        String payload = resp.getBody();
-        JsonReader reader = Json.createReader(new StringReader(payload));
-        JsonObject result = reader.readObject();
-        JsonArray movies = result.getJsonArray("results");
+                String payload = resp.getBody();
+                JsonReader reader = Json.createReader(new StringReader(payload));
+                JsonObject result = reader.readObject();
+                JsonArray movies = result.getJsonArray("results");
 
-        return processMovies(movies);
-    }
-
-    // retrieve the list of movies by country
-    public List<Movie> getMoviesByCountry(String country) {
-
-        String url = UriComponentsBuilder
-                .fromUriString("https://api.themoviedb.org/3/discover/movie")
-                .queryParam("with_origin_country", country)
-                .toUriString();
-
-        RequestEntity<Void> req = RequestEntity.get(url)
-                .header("Authorization",
-                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
-                .build();
-
-        RestTemplate template = new RestTemplate();
-        ResponseEntity<String> resp = template.exchange(req, String.class);
-
-        String payload = resp.getBody();
-        JsonReader reader = Json.createReader(new StringReader(payload));
-        JsonObject result = reader.readObject();
-        JsonArray movies = result.getJsonArray("results");
-
-        return processMovies(movies);
-    }
-
-    // process the list of movies by assigning them fields
-    private List<Movie> processMovies(JsonArray movies) {
-        List<Movie> movieList = new ArrayList<>();
-        for (JsonValue movieValue : movies) {
-            JsonObject movieObject = (JsonObject) movieValue;
-
-            String title = movieObject.getString("title");
-            String releaseDate = movieObject.getString("release_date");
-            String overview = movieObject.getString("overview");
-            String imagePath = movieObject.getString("poster_path");
-            String imageUrl = "http://image.tmdb.org/t/p/w500" + imagePath;
-
-            Movie movie = new Movie(title, releaseDate, overview, imageUrl);
-            movieList.add(movie);
-
-        }
-        return movieList;
-    }
-
-    // retrieve genre codes from API
-    public List<GenreCode> getGenreCode() {
-        if (gcodes == null) {
-            String url = UriComponentsBuilder
-                    .fromUriString("https://api.themoviedb.org/3/genre/movie/list")
-                    .toUriString();
-
-            RequestEntity<Void> req = RequestEntity
-                    .get(url)
-                    .header("Authorization",
-                            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
-                    .build();
-
-            RestTemplate template = new RestTemplate();
-
-            ResponseEntity<String> resp = template.exchange(req, String.class);
-            String payload = resp.getBody();
-
-            JsonReader reader = Json.createReader(new StringReader(payload));
-            JsonObject result = reader.readObject();
-            JsonArray genres = result.getJsonArray("genres");
-
-            List<GenreCode> genreCodes = new ArrayList<>();
-            for (JsonValue genreValue : genres) {
-                JsonObject genreObject = (JsonObject) genreValue;
-                Integer code = genreObject.getInt("id");
-                String name = genreObject.getString("name");
-
-                GenreCode genreCode = new GenreCode(code, name);
-                genreCodes.add(genreCode);
-            }
-
-            Collections.sort(genreCodes, Comparator.comparing(GenreCode::name));
-            gcodes = genreCodes;
+                System.out.println(url);
+                return processMovies(movies);
 
         }
 
-        return gcodes;
-    }
+        // retrieve the list of movies by genre
+        public List<Movie> getMoviesByGenre(String genre) {
 
-    // retrieve country codes from API
-    public List<CountryCode> getCountryCode() {
-        if (ccodes == null) {
-            String url = UriComponentsBuilder
-                    .fromUriString("https://api.themoviedb.org/3/configuration/countries")
-                    .toUriString();
+                String url = UriComponentsBuilder
+                                .fromUriString("https://api.themoviedb.org/3/discover/movie")
+                                .queryParam("with_genres", genre)
+                                .toUriString();
 
-            RequestEntity<Void> req = RequestEntity
-                    .get(url)
-                    .header("Authorization",
-                            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
-                    .build();
+                RequestEntity<Void> req = RequestEntity.get(url)
+                                .header("Authorization",
+                                                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                .build();
 
-            RestTemplate template = new RestTemplate();
+                RestTemplate template = new RestTemplate();
+                ResponseEntity<String> resp = template.exchange(req, String.class);
 
-            ResponseEntity<String> resp = template.exchange(req, String.class);
-            String payload = resp.getBody();
+                String payload = resp.getBody();
+                JsonReader reader = Json.createReader(new StringReader(payload));
+                JsonObject result = reader.readObject();
+                JsonArray movies = result.getJsonArray("results");
 
-            JsonReader reader = Json.createReader(new StringReader(payload));
-            JsonArray countries = reader.readArray();
-
-            List<CountryCode> countryCodes = new ArrayList<>();
-            for (JsonValue countryValue : countries) {
-                JsonObject jsonObject = countryValue.asJsonObject();
-                String code = jsonObject.getString("iso_3166_1");
-                String name = jsonObject.getString("english_name");
-
-                CountryCode countryCode = new CountryCode(code, name);
-                countryCodes.add(countryCode);
-            }
-            Collections.sort(countryCodes, Comparator.comparing(CountryCode::name));
-            ccodes = countryCodes;
+                return processMovies(movies);
         }
-        return ccodes;
-    }
+
+        // retrieve the list of movies by country
+        public List<Movie> getMoviesByCountry(String country) {
+
+                String url = UriComponentsBuilder
+                                .fromUriString("https://api.themoviedb.org/3/discover/movie")
+                                .queryParam("with_origin_country", country)
+                                .toUriString();
+
+                RequestEntity<Void> req = RequestEntity.get(url)
+                                .header("Authorization",
+                                                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                .build();
+
+                RestTemplate template = new RestTemplate();
+                ResponseEntity<String> resp = template.exchange(req, String.class);
+
+                String payload = resp.getBody();
+                JsonReader reader = Json.createReader(new StringReader(payload));
+                JsonObject result = reader.readObject();
+                JsonArray movies = result.getJsonArray("results");
+
+                return processMovies(movies);
+        }
+
+        // process the list of movies by assigning them fields
+        private List<Movie> processMovies(JsonArray movies) {
+                List<Movie> movieList = new ArrayList<>();
+                for (JsonValue movieValue : movies) {
+                        JsonObject movieObject = (JsonObject) movieValue;
+
+                        String title = movieObject.getString("title");
+                        String releaseDate = movieObject.getString("release_date");
+                        String overview = movieObject.getString("overview");
+                        String imagePath = movieObject.getString("poster_path");
+                        String imageUrl = "http://image.tmdb.org/t/p/w500" + imagePath;
+
+                        Movie movie = new Movie(title, releaseDate, overview, imageUrl);
+                        movieList.add(movie);
+
+                }
+                return movieList;
+        }
+
+        // retrieve genre codes from API
+        public List<GenreCode> getGenreCode() {
+                if (gcodes == null) {
+                        String url = UriComponentsBuilder
+                                        .fromUriString("https://api.themoviedb.org/3/genre/movie/list")
+                                        .toUriString();
+
+                        RequestEntity<Void> req = RequestEntity
+                                        .get(url)
+                                        .header("Authorization",
+                                                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                        .build();
+
+                        RestTemplate template = new RestTemplate();
+
+                        ResponseEntity<String> resp = template.exchange(req, String.class);
+                        String payload = resp.getBody();
+
+                        JsonReader reader = Json.createReader(new StringReader(payload));
+                        JsonObject result = reader.readObject();
+                        JsonArray genres = result.getJsonArray("genres");
+
+                        List<GenreCode> genreCodes = new ArrayList<>();
+                        for (JsonValue genreValue : genres) {
+                                JsonObject genreObject = (JsonObject) genreValue;
+                                Integer code = genreObject.getInt("id");
+                                String name = genreObject.getString("name");
+
+                                GenreCode genreCode = new GenreCode(code, name);
+                                genreCodes.add(genreCode);
+                        }
+
+                        Collections.sort(genreCodes, Comparator.comparing(GenreCode::name));
+                        gcodes = genreCodes;
+
+                }
+
+                return gcodes;
+        }
+
+        // retrieve country codes from API
+        public List<CountryCode> getCountryCode() {
+                if (ccodes == null) {
+                        String url = UriComponentsBuilder
+                                        .fromUriString("https://api.themoviedb.org/3/configuration/countries")
+                                        .toUriString();
+
+                        RequestEntity<Void> req = RequestEntity
+                                        .get(url)
+                                        .header("Authorization",
+                                                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                        .build();
+
+                        RestTemplate template = new RestTemplate();
+
+                        ResponseEntity<String> resp = template.exchange(req, String.class);
+                        String payload = resp.getBody();
+
+                        JsonReader reader = Json.createReader(new StringReader(payload));
+                        JsonArray countries = reader.readArray();
+
+                        List<CountryCode> countryCodes = new ArrayList<>();
+                        for (JsonValue countryValue : countries) {
+                                JsonObject jsonObject = countryValue.asJsonObject();
+                                String code = jsonObject.getString("iso_3166_1");
+                                String name = jsonObject.getString("english_name");
+
+                                CountryCode countryCode = new CountryCode(code, name);
+                                countryCodes.add(countryCode);
+                        }
+                        Collections.sort(countryCodes, Comparator.comparing(CountryCode::name));
+                        ccodes = countryCodes;
+                }
+                return ccodes;
+        }
 }
