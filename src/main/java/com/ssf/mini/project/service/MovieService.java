@@ -28,7 +28,7 @@ public class MovieService {
     private List<GenreCode> gcodes = null;
     private List<CountryCode> ccodes = null;
 
-    // to retrieve the list of movies by genre
+    // to retrieve the list of movies by genre and country
     public List<Movie> getMovies(String genre, String country) {
 
         String url = UriComponentsBuilder
