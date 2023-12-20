@@ -13,14 +13,25 @@
           <td>
             <select name="genre">
               <option
-                data-th-each="code : ${codes}"
-                data-th-value="${code.code}"
-                data-th-text="${code.name}"
+                data-th-each="gcode : ${gcodes}"
+                data-th-value="${gcode.code}"
+                data-th-text="${gcode.name}"
               ></option>
             </select>
           </td>
         </tr>
         <tr>
+          <td>Country</td>
+          <td>
+            <select name="country">
+              <option
+              data-th-each="ccode : ${ccodes}"
+              data-th-value="${ccode.code}"
+              data-th-text="${ccode.name}">
+            </option>
+            </select>
+          </td>
+          </tr>
           <td></td>
           <td>
             <button type="submit">Search</button>

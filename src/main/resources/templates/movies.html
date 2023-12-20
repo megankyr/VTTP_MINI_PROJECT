@@ -8,7 +8,7 @@
   <body>
     <div data-th-if="${#lists.isEmpty(movies)}">
       <p>
-        No movies found for <span data-th-text="${genre}"></span>
+        No movies found for <span data-th-text="${genre}"></span> in <span data-th-text="${country}"></span>
       </p>
     </div>
     <div data-th-unless="${#lists.isEmpty(movies)}">
