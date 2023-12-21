@@ -21,6 +21,10 @@
         <div>
           <img data-th-src="${movie.imageUrl}" width="250px" />
         </div>
+        <div>
+          <br>
+          <a th:href="@{/select/{movieName}(movieName=${movie.title})}">Select</a>
+        </div>
       </article>
     </div>
   </body>
