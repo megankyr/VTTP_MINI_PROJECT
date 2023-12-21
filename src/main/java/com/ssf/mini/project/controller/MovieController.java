@@ -19,20 +19,20 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @GetMapping("search/title")
+    @GetMapping("/search/title")
     public ModelAndView searchTitle() {
         ModelAndView mav = new ModelAndView("title");
         return mav;
     }
 
-    @GetMapping("search/genre")
+    @GetMapping("/search/genre")
     public ModelAndView searchGenre() {
         ModelAndView mav = new ModelAndView("genre");
         mav.addObject("gcodes", movieService.getGenreCode());
         return mav;
     }
 
-    @GetMapping("search/country")
+    @GetMapping("/search/country")
     public ModelAndView searchCountry() {
         ModelAndView mav = new ModelAndView("country");
         mav.addObject("ccodes", movieService.getCountryCode());
