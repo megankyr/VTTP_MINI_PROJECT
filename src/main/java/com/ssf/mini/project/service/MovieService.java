@@ -54,9 +54,6 @@ public class MovieService {
                         JsonObject result = reader.readObject();
                         JsonArray movies = result.getJsonArray("results");
 
-                        System.out.println(url);
-                        System.out.println(payload);
-
                         return processMovies(movies);
 
                 } catch (Exception e) {

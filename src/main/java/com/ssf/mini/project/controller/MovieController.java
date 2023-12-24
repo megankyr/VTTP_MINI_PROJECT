@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ssf.mini.project.model.Event;
 import com.ssf.mini.project.model.Movie;
 import com.ssf.mini.project.service.MovieService;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping
@@ -19,12 +22,6 @@ public class MovieController {
 
     @Autowired
     private MovieService movieService;
-
-    @GetMapping("/search/title")
-    public ModelAndView searchTitle() {
-        ModelAndView mav = new ModelAndView("title");
-        return mav;
-    }
 
     @GetMapping("/search/genre")
     public ModelAndView searchGenre() {
@@ -66,9 +63,13 @@ public class MovieController {
     }
 
     @GetMapping("/select/{movieName}")
-    public ModelAndView select(@PathVariable String movieName) {
+    public ModelAndView select(@PathVariable String movieName, HttpSession session) {
         ModelAndView mav = new ModelAndView("select");
-        mav.addObject("moviename", movieName);
+        Event event = new Event();
+        event.setEventMovie(movieName);
+        session.setAttribute("selectedMovie", movieName);
+        System.out.println(session.getAttribute("selectedMovie"));
+        mav.addObject("selectedMovie", session.getAttribute("selectedMovie"));
         return mav;
     }
 

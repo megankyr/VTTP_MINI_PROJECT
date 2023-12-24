@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guests</title>
+  </head>
+  <body>
+    <form method="POST" action="/processguests" data-th-object="${user}">
+      <h1>Let's add the guests!</h1>
+
+      <label for="name">Guests</label>
+      <input type="text" data-th-field="*{name}" id="name" name="name" />
+      <p th:errors="*{name}"></p>
+      <br />
+
+      <button type="submit" formaction="/done">Done Adding Users</button>
+      <button type="submit" formaction="/guests">Add more users</button>
+    </form>
+  </body>
+</html>
