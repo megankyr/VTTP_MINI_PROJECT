@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalise</title>
+</head>
+<body>
+    <p>Finalise your event?</p>
+    <form method="GET" data-th-action="@{/done}">
+        <p> Event details:</p>
+        <p>Event Name: <span th:text="${event.eventName}"></span></p>
+    <p>Event Place: <span th:text="${event.eventPlace}"></span></p>
+    <p>Event Date: <span th:text="${event.eventDate}"></span></p>
+    <p>Event Time: <span th:text="${event.eventTime}"></span></p>
+    <p>Event Host: <span th:text="${event.eventHost}"></span></p>
+    <p>Event Movie: <span th:text="${event.eventMovie}"></span></p>
+
+    <p> Event Members</p>
+    <ul>
+        <li th:each="member : ${eventMembers}">
+            <span th:text="${member.name}"></span>
+        </li>
+    </ul>
+    <button type="submit">Yes!</button>
+    </form>
+
+</body>
+</html>

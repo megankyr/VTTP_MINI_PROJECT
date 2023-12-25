@@ -1,6 +1,5 @@
 package com.ssf.mini.project.model;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
 public class User {
@@ -11,7 +10,7 @@ public class User {
     public User() {
     }
 
-    public User(@NotBlank(message = "Name must be provided") String name) {
+    public User(@NotEmpty(message = "Name must be provided") String name) {
         this.name = name;
     }
 

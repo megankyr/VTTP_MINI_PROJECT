@@ -124,8 +124,19 @@ public class IndexController {
 
     // done up till here
     @PostMapping("/postguests")
-    public String postGuests(HttpSession session) {
-        return "done";
+    public String postGuests() {
+        return "redirect:/final";
     }
 
+    @GetMapping("/final")
+    public ModelAndView showFinal(HttpSession session) {
+
+        Event event = (Event)session.getAttribute("event");
+        List<User> eventMembers = (List<User>) session.getAttribute("eventMembers");
+        ModelAndView mav = new ModelAndView("final");
+        mav.addObject("event", event);
+        mav.addObject("eventMembers", eventMembers);
+        return mav;
+
+    }
 }
