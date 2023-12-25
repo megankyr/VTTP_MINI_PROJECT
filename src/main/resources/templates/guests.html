@@ -6,7 +6,7 @@
     <title>Guests</title>
   </head>
   <body>
-    <form method="POST" action="/processguests" data-th-object="${user}">
+    <form method="POST" data-th-object="${user}">
       <h1>Let's add the guests!</h1>
 
       <label for="name">Guests</label>
@@ -14,8 +14,22 @@
       <p th:errors="*{name}"></p>
       <br />
 
-      <button type="submit" formaction="/done">Done Adding Users</button>
+      <button type="submit" formaction="/postguests">Done Adding Users</button>
       <button type="submit" formaction="/guests">Add more users</button>
     </form>
+    <div data-th-unless="${#lists.isEmpty(eventMembers)}">
+      <table border="1">
+          <thead>
+              <tr>
+                  <th>Guest Names</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr data-th-each="e : ${eventMembers}">
+                  <td><span data-th-text="${e.getName}"></span></td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
   </body>
 </html>

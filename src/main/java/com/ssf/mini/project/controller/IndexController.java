@@ -70,6 +70,7 @@ public class IndexController {
     // load event registration page with the fields event name, place, date
     // time, movie, host (preloaded from session attributes) and submit event
     // details button
+    // (previous) select html's action is /eventdetails - loads the page
     @GetMapping("/eventdetails")
     public String showEventForm(Model model, HttpSession session) {
         model.addAttribute("event", new Event());
@@ -78,6 +79,9 @@ public class IndexController {
         return "eventdetails";
     }
 
+    // (previous) eventdetails's action is /register
+    // processes the event form
+    // guests' action is /processguests
     @PostMapping("/register")
     public String processForm(@Valid @ModelAttribute Event event, BindingResult binding,
             HttpSession session) {
@@ -85,28 +89,43 @@ public class IndexController {
             return "eventdetails";
         }
         session.setAttribute("event", event);
-        return "guests";
+        return "redirect:/guests";
     }
 
     @GetMapping("/guests")
     public String showGuestForm(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("eventMembers", new ArrayList<User>()); // Add this line
         return "guests";
     }
 
-    @PostMapping("/processguests")
-    public String processGuests(@Valid @ModelAttribute User user, BindingResult binding,
+    @PostMapping("/guests")
+    public ModelAndView processGuests(@Valid @ModelAttribute User user, BindingResult binding,
             HttpSession session) {
+        ModelAndView mav = new ModelAndView("guests");
 
         if (binding.hasErrors()) {
-            return "guests";
+            mav.addObject("user", user);
+            return mav;
         }
+
         List<User> eventMembers = (List<User>) session.getAttribute("eventMembers");
         if (eventMembers == null) {
             eventMembers = new ArrayList<>();
         }
+
         eventMembers.add(user);
         session.setAttribute("eventMembers", eventMembers);
+        mav.addObject("user", new User());
+        mav.addObject("eventMembers", eventMembers);
+
+        return mav;
+    }
+
+    // done up till here
+    @PostMapping("/postguests")
+    public String postGuests(HttpSession session) {
         return "done";
     }
+
 }
