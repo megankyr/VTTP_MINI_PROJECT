@@ -139,4 +139,9 @@ public class IndexController {
         return mav;
 
     }
+
+    @GetMapping("/done")
+    public String showDonePage(){
+        return "done";
+    }
 }
