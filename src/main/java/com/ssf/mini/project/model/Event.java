@@ -42,13 +42,11 @@ public class Event {
 
     private List<User> eventMembers;
 
-    private List<Comment> eventComments;
-
     public Event(@NotNull(message = "Name must be provided") String eventName,
             @NotNull(message = "Place must be provided") String eventPlace,
             @NotNull(message = "Date must be provided") @Future(message = "Date must be in the future") LocalDate eventDate,
             @NotNull(message = "Time must be provided") LocalTime eventTime, String eventHost, String eventMovie,
-            List<User> eventMembers, List<Comment> eventComments) {
+            List<User> eventMembers) {
         this.eventName = eventName;
         this.eventPlace = eventPlace;
         this.eventDate = eventDate;
@@ -56,7 +54,6 @@ public class Event {
         this.eventHost = eventHost;
         this.eventMovie = eventMovie;
         this.eventMembers = eventMembers;
-        this.eventComments = eventComments;
     }
 
     public String getEventName() {
@@ -113,13 +110,5 @@ public class Event {
 
     public void setEventMembers(List<User> eventMembers) {
         this.eventMembers = eventMembers;
-    }
-
-    public List<Comment> getEventComments() {
-        return eventComments;
-    }
-
-    public void setEventComments(List<Comment> eventComments) {
-        this.eventComments = eventComments;
     }
 }

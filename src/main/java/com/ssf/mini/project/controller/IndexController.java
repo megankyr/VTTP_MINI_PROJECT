@@ -104,7 +104,6 @@ public class IndexController {
             HttpSession session) {
         ModelAndView mav = new ModelAndView("guests");
 
-
         List<User> eventMembers = (List<User>) session.getAttribute("eventMembers");
         if (eventMembers == null) {
             eventMembers = new ArrayList<>();
@@ -123,7 +122,6 @@ public class IndexController {
         return mav;
     }
 
-    // done up till here
     @PostMapping("/postguests")
     public String postGuests() {
         return "redirect:/final";
@@ -132,17 +130,52 @@ public class IndexController {
     @GetMapping("/final")
     public ModelAndView showFinal(HttpSession session) {
 
-        Event event = (Event)session.getAttribute("event");
+        Event event = (Event) session.getAttribute("event");
         List<User> eventMembers = (List<User>) session.getAttribute("eventMembers");
         ModelAndView mav = new ModelAndView("final");
         mav.addObject("event", event);
         mav.addObject("eventMembers", eventMembers);
+        System.out.println("Event Name: " + event.getEventName());
+        System.out.println("Event Place: " + event.getEventPlace());
+        System.out.println("Event Date: " + event.getEventDate());
+        System.out.println("Event Time: " + event.getEventTime());
+        System.out.println("Event Host: " + event.getEventHost());
+        System.out.println("Event Movie: " + event.getEventMovie());
         return mav;
 
     }
 
-    @GetMapping("/done")
-    public String showDonePage(){
-        return "done";
+    @PostMapping("/final")
+    public ModelAndView save(HttpSession session) {
+
+        ModelAndView mav = new ModelAndView("save");
+        Event event = (Event) session.getAttribute("event");
+        List<User> eventMembers = (List<User>) session.getAttribute("eventMembers");
+        event.setEventMembers(eventMembers);
+        System.out.println("Event Name: " + event.getEventName());
+        System.out.println("Event Place: " + event.getEventPlace());
+        System.out.println("Event Date: " + event.getEventDate());
+        System.out.println("Event Time: " + event.getEventTime());
+        System.out.println("Event Host: " + event.getEventHost());
+        System.out.println("Event Movie: " + event.getEventMovie());
+
+        if (event.getEventMembers() == null || event.getEventMembers().isEmpty()) {
+            return new ModelAndView("usererror");
+        }
+
+        if (event.getEventName() == null || event.getEventName().isEmpty() ||
+                event.getEventPlace() == null || event.getEventPlace().isEmpty() ||
+                event.getEventDate() == null ||
+                event.getEventTime() == null ||
+                event.getEventHost() == null || event.getEventHost().isEmpty() ||
+                event.getEventMovie() == null || event.getEventMovie().isEmpty()) {
+            return new ModelAndView("errordetails");
+        }
+
+        eventRepo.saveRecord(event);
+        session.invalidate();
+        return mav;
+
     }
+
 }

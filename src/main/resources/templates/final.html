@@ -7,7 +7,7 @@
 </head>
 <body>
     <p>Finalise your event?</p>
-    <form method="GET" data-th-action="@{/done}">
+    <form method="POST" data-th-action="@{/final}">
         <p> Event details:</p>
         <p>Event Name: <span th:text="${event.eventName}"></span></p>
     <p>Event Place: <span th:text="${event.eventPlace}"></span></p>

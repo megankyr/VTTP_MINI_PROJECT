@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.ssf.mini.project.model.Comment;
 import com.ssf.mini.project.model.Event;
 import com.ssf.mini.project.model.User;
 
@@ -32,16 +31,15 @@ public class EventRepo {
         template.opsForHash().put(key, "eventHost", event.getEventHost());
         template.opsForHash().put(key, "eventMovie", event.getEventMovie());
         template.opsForHash().put(key, "eventMembers", event.getEventMembers().toString());
-        template.opsForHash().put(key, "eventComments", event.getEventComments().toString());
-
+        
         String hostName = event.getEventHost();
         String eventName = event.getEventName();
-        template.opsForSet().add(hostName, eventName);
+        template.opsForValue().set(hostName, eventName);
 
         List<User> members = event.getEventMembers();
         for (User member : members) {
             String memberName = member.getName();
-            template.opsForSet().add(memberName, eventName);
+            template.opsForValue().set(memberName, eventName);
         }
 
     }
@@ -54,8 +52,8 @@ public class EventRepo {
         return template.hasKey(name);
     }
 
-    public Event getEvent(String name) {
-        String eventName = (String) template.opsForValue().get(name);
+    public Event getEventByHost(String name) {
+        String eventName = template.opsForValue().get("hostName");
         String key = EVENT_HASH_KEY + ":" + eventName;
         Map<Object, Object> eventData = template.opsForHash().entries(key);
         Event event = new Event();
@@ -66,11 +64,26 @@ public class EventRepo {
         event.setEventMovie(eventData.get("eventMovie").toString());
         event.setEventHost(eventData.get("eventHost").toString());
         event.setEventMembers((List<User>) eventData.get("eventMembers"));
-        event.setEventComments((List<Comment>) eventData.get("eventComments"));
 
         return event;
     }
 
+    public Event getEventByMember(String name) {
+        String eventName = template.opsForValue().get("memberName");
+        String key = EVENT_HASH_KEY + ":" + eventName;
+        Map<Object, Object> eventData = template.opsForHash().entries(key);
+        Event event = new Event();
+        event.setEventName(eventData.get("eventName").toString());
+        event.setEventPlace(eventData.get("eventPlace").toString());
+        event.setEventDate(LocalDate.parse(eventData.get("eventDate").toString()));
+        event.setEventTime(LocalTime.parse(eventData.get("eventTime").toString()));
+        event.setEventMovie(eventData.get("eventMovie").toString());
+        event.setEventHost(eventData.get("eventHost").toString());
+        event.setEventMembers((List<User>) eventData.get("eventMembers"));
+
+        return event;
+    }
+    
     public List<User> getEventMembers(String eventName) {
         Event event = getEvent(eventName);
         List<User> members = event.getEventMembers();
