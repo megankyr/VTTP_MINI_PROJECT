@@ -16,12 +16,14 @@
     <p>Event Host: <span th:text="${event.eventHost}"></span></p>
     <p>Event Movie: <span th:text="${event.eventMovie}"></span></p>
 
-    <p> Event Members</p>
+    <div data-th-unless="${#lists.isEmpty(eventMembers)}">
+    <p> Event Members: </p>
     <ul>
         <li th:each="member : ${eventMembers}">
             <span th:text="${member.name}"></span>
         </li>
     </ul>
+    </div>
     <button type="submit">Yes!</button>
     </form>
 

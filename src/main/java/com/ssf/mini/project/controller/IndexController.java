@@ -104,14 +104,15 @@ public class IndexController {
             HttpSession session) {
         ModelAndView mav = new ModelAndView("guests");
 
-        if (binding.hasErrors()) {
-            mav.addObject("user", user);
-            return mav;
-        }
 
         List<User> eventMembers = (List<User>) session.getAttribute("eventMembers");
         if (eventMembers == null) {
             eventMembers = new ArrayList<>();
+        }
+
+        if (binding.hasErrors()) {
+            mav.addObject("user", user);
+            return mav;
         }
 
         eventMembers.add(user);
