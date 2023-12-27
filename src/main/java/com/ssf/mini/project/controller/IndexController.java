@@ -29,100 +29,71 @@ public class IndexController {
     @Autowired
     EventRepo eventRepo;
 
-    // load login page
     @GetMapping("/")
     public String getIndex() {
         return "index";
     }
 
-    // check if name entered is a host or member, if it is, load the existing event
-    // page
-    // else create new event page
     @GetMapping("/login")
-    public String login(@RequestParam String name, Model model, HttpSession session) {
+    public String getLogin(@RequestParam String name, Model model, HttpSession session) {
         session.setAttribute("name", name);
         if (eventRepo.isHost(name) || eventRepo.isMember(name)) {
             Event event = eventRepo.getEvent(name);
             List<User> eventMembers = eventRepo.getEventMembers(name);
             model.addAttribute("event", event);
-            System.out.println("Event Name: " + event.getEventName());
-            System.out.println("Event Place: " + event.getEventPlace());
-            System.out.println("Event Date: " + event.getEventDate());
-            System.out.println("Event Time: " + event.getEventTime());
-            System.out.println("Event Host: " + event.getEventHost());
-            System.out.println("Event Movie: " + event.getEventMovie());
-            System.out.println("Event Movie: " + event.getEventMembers());
             model.addAttribute("eventMembers", eventMembers);
-            for (User member : eventMembers) {
-                System.out.println(member);
-            }
             if (eventRepo.getComments(name) != null) {
                 List<Comment> comments = eventRepo.getComments(name);
                 model.addAttribute("comments", comments);
-                for (Comment comment : comments) {
-                    System.out.println("Comment: " + comment + " By: " + name);
-                }
             }
 
-            return "event";
+            return "existingevent";
         } else {
             Event event = new Event();
             event.setEventHost(name);
             session.setAttribute("eventHost", name);
-            System.out.println(session.getAttribute("eventHost"));
 
-            return "create";
+            return "newevent";
         }
     }
 
     @GetMapping("/comment")
-    public String loadCommentForm(Model model) {
-        model.addAttribute("comment", new Comment());
+    public String getComment(Model model) {
+        Comment comment = new Comment();
+        model.addAttribute("comment", comment);
         return "comment";
     }
 
     @PostMapping("/comment")
     public ModelAndView processComment(@ModelAttribute Comment comment,
             HttpSession session) {
-        ModelAndView mav = new ModelAndView("added");
+        ModelAndView mav = new ModelAndView("commentadded");
         String author = (String) session.getAttribute("name");
         comment.setAuthor(author);
-        mav.addObject("author", author);
-        mav.addObject("comment", comment);
         eventRepo.saveComment(comment);
         return mav;
     }
 
-    // load search page with the options title, genre and country
     @GetMapping("/search")
     public String displaySearchOptions() {
         return "search";
     }
 
-    // search movie by title
     @GetMapping("/search/title")
-    public ModelAndView searchTitle() {
-        ModelAndView mav = new ModelAndView("title");
-        return mav;
+    public String searchTitle() {
+        return "title";
     }
 
-    // load event registration page with the fields event name, place, date
-    // time, movie, host (preloaded from session attributes) and submit event
-    // details button
-    // (previous) select html's action is /eventdetails - loads the page
     @GetMapping("/eventdetails")
-    public String showEventForm(Model model, HttpSession session) {
+    public String getEventDetails(Model model, HttpSession session) {
         model.addAttribute("event", new Event());
         model.addAttribute(session.getAttribute("eventHost"));
         model.addAttribute(session.getAttribute("selectedMovie"));
         return "eventdetails";
     }
 
-    // (previous) eventdetails's action is /register
-    // processes the event form
-    // guests' action is /processguests
-    @PostMapping("/register")
-    public String processForm(@Valid @ModelAttribute Event event, BindingResult binding,
+    @PostMapping("/eventdetails")
+    public String processEventDetails(@Valid @ModelAttribute Event event, BindingResult binding,
             HttpSession session) {
         if (binding.hasErrors()) {
             return "eventdetails";
