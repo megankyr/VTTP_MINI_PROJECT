@@ -1,6 +1,5 @@
 package com.ssf.mini.project.repo;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.ssf.mini.project.model.Comment;
 import com.ssf.mini.project.model.Event;
 import com.ssf.mini.project.model.User;
 
@@ -25,6 +25,7 @@ public class EventRepo {
 
     private static final String EVENT_HASH_KEY = "film club";
     private static final String MEMBER_SET_KEY = "club members";
+    private static final String COMMENT_HASH_KEY = "comments";
 
     public void saveRecord(Event event) {
         String key = EVENT_HASH_KEY + ":" + event.getEventName();
@@ -94,6 +95,29 @@ public class EventRepo {
         }
 
         return members;
+
+    }
+
+    public void saveComment(Comment comment) {
+        String eventName = template.opsForValue().get(comment.getAuthor());
+        String key = COMMENT_HASH_KEY + ":" + eventName;
+        template.opsForHash().put(key, comment.getAuthor(), comment.getComment());
+    }
+
+    public List<Comment> getComments(String name) {
+        List<Comment> comments = new ArrayList<>();
+        String eventName = template.opsForValue().get(name);
+        String key = COMMENT_HASH_KEY + ":" + eventName;
+        if (template.hasKey(name)) {
+            Map<Object, Object> entries = template.opsForHash().entries(key);
+            for (Map.Entry<Object, Object> entry : entries.entrySet()) {
+                String author = (String) entry.getKey();
+                String comment = (String) entry.getValue();
+                comments.add(new Comment(comment, author));
+                System.out.println("Comment: " + comment + " By: " + author);
+            }
+        }
+        return comments;
 
     }
 

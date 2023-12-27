@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add a comment</title>
+  </head>
+  <body>
+    <form method="POST" data-th-action="@{/comment}" data-th-object="${comment}">
+      <td>Comments:</td>
+      <td>
+        <textarea name="comment" cols="30" rows="4"></textarea>
+      </td>
+      <button type="submit">Add comment</button>
+    </form>
+  </body>
+</html>

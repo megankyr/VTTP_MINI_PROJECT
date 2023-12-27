@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Existing Event</title>
-</head>
-<body>
+  </head>
+  <body>
     <p>This is your event</p>
-        <p> Event details:</p>
-        <p>Event Name: <span th:text="${event.eventName}"></span></p>
-    <p>Event Place: <span th:text="${event.eventPlace}"></span></p>
-    <p>Event Date: <span th:text="${event.eventDate}"></span></p>
-    <p>Event Time: <span th:text="${event.eventTime}"></span></p>
-    <p>Event Host: <span th:text="${event.eventHost}"></span></p>
-    <p>Event Movie: <span th:text="${event.eventMovie}"></span></p>
-    
-    <p> Event Members: </p>
-    <ul>
-        <li th:each="member : ${eventMembers}">
-            <span th:text="${member.name}"></span>
-        </li>
-    </ul>
+    <form method="GET" data-th-action="@{/comment}">
+      <p>Event details:</p>
+      <p>Event Name: <span th:text="${event.eventName}"></span></p>
+      <p>Event Place: <span th:text="${event.eventPlace}"></span></p>
+      <p>Event Date: <span th:text="${event.eventDate}"></span></p>
+      <p>Event Time: <span th:text="${event.eventTime}"></span></p>
+      <p>Event Host: <span th:text="${event.eventHost}"></span></p>
+      <p>Event Movie: <span th:text="${event.eventMovie}"></span></p>
 
-</body>
+      <p>Event Members:</p>
+      <ul>
+        <li th:each="member : ${eventMembers}">
+          <span th:text="${member.name}"></span>
+        </li>
+      </ul>
+
+      <div data-th-unless="${#lists.isEmpty(comments)}">
+        <p>Comments:</p>
+        <ul>
+          <li th:each="comment : ${comments}">
+            <p>Comment: <span th:text="${comment.comment}"></span></p>
+            <p>By: <span th:text="${comment.author}"></span></p>
+          </li>
+        </ul>
+      </div>
+      <button type="submit">Add a comment</button>
+    </form>
+  </body>
 </html>

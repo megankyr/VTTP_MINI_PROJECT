@@ -2,6 +2,7 @@ package com.ssf.mini.project.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ssf.mini.project.model.Comment;
 import com.ssf.mini.project.model.Event;
 import com.ssf.mini.project.model.User;
 import com.ssf.mini.project.repo.EventRepo;
@@ -55,6 +58,13 @@ public class IndexController {
             for (User member : eventMembers) {
                 System.out.println(member);
             }
+            if (eventRepo.getComments(name) != null) {
+                List<Comment> comments = eventRepo.getComments(name);
+                model.addAttribute("comments", comments);
+                for (Comment comment : comments) {
+                    System.out.println("Comment: " + comment + " By: " + name);
+                }
+            }
 
             return "event";
         } else {
@@ -66,7 +76,24 @@ public class IndexController {
             return "create";
         }
     }
-    
+
+    @GetMapping("/comment")
+    public String loadCommentForm(Model model) {
+        model.addAttribute("comment", new Comment());
+        return "comment";
+    }
+
+    @PostMapping("/comment")
+    public ModelAndView processComment(@ModelAttribute Comment comment,
+            HttpSession session) {
+        ModelAndView mav = new ModelAndView("added");
+        String author = (String) session.getAttribute("name");
+        comment.setAuthor(author);
+        mav.addObject("author", author);
+        mav.addObject("comment", comment);
+        eventRepo.saveComment(comment);
+        return mav;
+    }
 
     // load search page with the options title, genre and country
     @GetMapping("/search")
