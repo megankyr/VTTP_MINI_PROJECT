@@ -83,4 +83,18 @@ public class EventRepo {
         return event;
     }
 
+    public List<User> getEventMembers(String name) {
+        String eventName = template.opsForValue().get(name);
+        String memberKey = MEMBER_SET_KEY + ":" + eventName;
+        Set<String> memberSet = template.opsForSet().members(memberKey);
+        List<User> members = new ArrayList<>();
+        for (String m : memberSet) {
+            User member = new User(m);
+            members.add(member);
+        }
+
+        return members;
+
+    }
+
 }

@@ -42,7 +42,20 @@ public class IndexController {
         session.setAttribute("name", name);
         if (eventRepo.isHost(name) || eventRepo.isMember(name)) {
             Event event = eventRepo.getEvent(name);
+            List<User> eventMembers = eventRepo.getEventMembers(name);
             model.addAttribute("event", event);
+            System.out.println("Event Name: " + event.getEventName());
+            System.out.println("Event Place: " + event.getEventPlace());
+            System.out.println("Event Date: " + event.getEventDate());
+            System.out.println("Event Time: " + event.getEventTime());
+            System.out.println("Event Host: " + event.getEventHost());
+            System.out.println("Event Movie: " + event.getEventMovie());
+            System.out.println("Event Movie: " + event.getEventMembers());
+            model.addAttribute("eventMembers", eventMembers);
+            for (User member : eventMembers) {
+                System.out.println(member);
+            }
+
             return "event";
         } else {
             Event event = new Event();
@@ -53,6 +66,7 @@ public class IndexController {
             return "create";
         }
     }
+    
 
     // load search page with the options title, genre and country
     @GetMapping("/search")
