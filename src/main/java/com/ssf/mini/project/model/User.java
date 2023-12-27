@@ -27,6 +27,4 @@ public class User {
         return "User{name='" + name + "'}";
     }
 
-    
-
 }

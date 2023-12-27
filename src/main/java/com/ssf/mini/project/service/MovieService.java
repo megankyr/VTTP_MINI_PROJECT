@@ -30,10 +30,8 @@ public class MovieService {
         private List<GenreCode> gcodes = null;
         private List<CountryCode> ccodes = null;
 
-        // retrieve the list of movies by title
         public List<Movie> getMoviesByTitle(String title) {
                 try {
-                        // encode url to accept parameters of multiple words
                         String encodedTitle = URLEncoder.encode(title, StandardCharsets.UTF_8.toString());
 
                         String url = UriComponentsBuilder
@@ -63,7 +61,6 @@ public class MovieService {
                 return null;
         }
 
-        // retrieve the list of movies by genre
         public List<Movie> getMoviesByGenre(String genre) {
 
                 String url = UriComponentsBuilder
@@ -87,7 +84,6 @@ public class MovieService {
                 return processMovies(movies);
         }
 
-        // retrieve the list of movies by country
         public List<Movie> getMoviesByCountry(String country) {
 
                 String url = UriComponentsBuilder
@@ -111,7 +107,6 @@ public class MovieService {
                 return processMovies(movies);
         }
 
-        // process the list of movies by assigning them fields
         private List<Movie> processMovies(JsonArray movies) {
                 List<Movie> movieList = new ArrayList<>();
                 for (JsonValue movieValue : movies) {
@@ -129,7 +124,6 @@ public class MovieService {
                 return movieList;
         }
 
-        // retrieve genre codes from API
         public List<GenreCode> getGenreCode() {
                 if (gcodes == null) {
                         String url = UriComponentsBuilder
@@ -169,7 +163,6 @@ public class MovieService {
                 return gcodes;
         }
 
-        // retrieve country codes from API
         public List<CountryCode> getCountryCode() {
                 if (ccodes == null) {
                         String url = UriComponentsBuilder

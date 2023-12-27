@@ -68,8 +68,7 @@ public class MovieController {
         Event event = new Event();
         event.setEventMovie(movieName);
         session.setAttribute("selectedMovie", movieName);
-        System.out.println(session.getAttribute("selectedMovie"));
-        mav.addObject("selectedMovie", session.getAttribute("selectedMovie"));
+        mav.addObject("selectedMovie", movieName);
         return mav;
     }
 

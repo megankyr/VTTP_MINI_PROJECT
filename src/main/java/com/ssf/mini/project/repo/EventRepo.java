@@ -24,10 +24,10 @@ public class EventRepo {
     private RedisTemplate<String, String> template;
 
     private static final String EVENT_HASH_KEY = "film club";
-    private static final String MEMBER_SET_KEY = "club members";
+    private static final String MEMBER_SET_KEY = "members";
     private static final String COMMENT_HASH_KEY = "comments";
 
-    public void saveRecord(Event event) {
+    public void saveEvent(Event event) {
         String key = EVENT_HASH_KEY + ":" + event.getEventName();
         template.opsForHash().put(key, "eventName", event.getEventName());
         template.opsForHash().put(key, "eventPlace", event.getEventPlace());
@@ -114,7 +114,6 @@ public class EventRepo {
                 String author = (String) entry.getKey();
                 String comment = (String) entry.getValue();
                 comments.add(new Comment(comment, author));
-                System.out.println("Comment: " + comment + " By: " + author);
             }
         }
         return comments;

@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class Event {
 
-    @NotEmpty(message = "Name must be provided")
+    @NotEmpty(message = "Film club name must be provided")
     private String eventName;
 
     @NotEmpty(message = "Place must be provided")
