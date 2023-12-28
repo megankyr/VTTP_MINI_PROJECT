@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finalise</title>
-</head>
-<body>
-    <p>Finalise your event?</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Final Check</title>
+  </head>
+  <body>
+    <h2>Everything's set!</h2>
     <form method="POST" data-th-action="@{/final}">
-        <p> Event details:</p>
-        <p>Event Name: <span th:text="${event.eventName}"></span></p>
-    <p>Event Place: <span th:text="${event.eventPlace}"></span></p>
-    <p>Event Date: <span th:text="${event.eventDate}"></span></p>
-    <p>Event Time: <span th:text="${event.eventTime}"></span></p>
-    <p>Event Host: <span th:text="${event.eventHost}"></span></p>
-    <p>Event Movie: <span th:text="${event.eventMovie}"></span></p>
-
-    <div data-th-unless="${#lists.isEmpty(eventMembers)}">
-    <p> Event Members: </p>
-    <ul>
-        <li th:each="member : ${eventMembers}">
+      <p>Film Club: <span th:text="${event.eventName}"></span></p>
+      <p>Watching: <span th:text="${event.eventMovie}"></span></p>
+      <p>Hosted By: <span th:text="${event.eventHost}"></span></p>
+      <div data-th-unless="${#lists.isEmpty(eventMembers)}">
+        <p>With:</p>
+        <ul>
+          <li th:each="member : ${eventMembers}">
             <span th:text="${member.name}"></span>
-        </li>
-    </ul>
-    </div>
-    <button type="submit">Yes!</button>
+          </li>
+        </ul>
+      </div>
+      <p>Date: <span th:text="${event.eventDate}"></span></p>
+      <p>Time: <span th:text="${event.eventTime}"></span></p>
+      <p>At: <span th:text="${event.eventPlace}"></span></p>
+      
+      <button type="submit">Save details!</button>
     </form>
-
-</body>
+  </body>
 </html>

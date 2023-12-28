@@ -7,7 +7,7 @@
   </head>
   <body>
     <form method="POST" data-th-object="${user}">
-      <h1>Let's add the guests!</h1>
+      <h2>Let's add guests!</h2>
 
       <label for="name">Guests</label>
       <input type="text" data-th-field="*{name}" id="name" name="name" />
@@ -17,15 +17,16 @@
       <div th:if="${error}" class="error">
         <p th:text="${error}"></p>
       </div>
-
-      <button type="submit" formaction="/postguests">Done Adding Users</button>
-      <button type="submit" formaction="/guests">Add user</button>
+      <br>
+      <button type="submit" formaction="/guests">Add guest</button>
+      <button type="submit" formaction="/postguests">Done adding guests</button>
     </form>
     <div data-th-unless="${#lists.isEmpty(eventMembers)}">
+      <br>
       <table border="1">
         <thead>
           <tr>
-            <th>Guest Names</th>
+            <th>Guests:</th>
           </tr>
         </thead>
         <tbody>

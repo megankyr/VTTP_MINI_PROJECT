@@ -7,23 +7,17 @@
   </head>
   <body>
     <form method="GET" data-th-action="@{/movies/genre}">
-      <table>
-        <tr>
-          <td>Genre</td>
-          <td>
-            <select name="genre">
-              <option
-                data-th-each="gcode : ${gcodes}"
-                data-th-value="${gcode.code}"
-                data-th-text="${gcode.name}"
-              ></option>
-            </select>
-          </td>
-        </tr>
-        <td>
-          <button type="submit">Search</button>
-        </td>
-      </table>
+      <div>
+        Genre:
+        <select name="genre">
+          <option
+            data-th-each="gcode : ${gcodes}"
+            data-th-value="${gcode.code}"
+            data-th-text="${gcode.name}"
+          ></option>
+        </select>
+        <button type="submit">Search</button>
+      </div>
     </form>
   </body>
 </html>

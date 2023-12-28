@@ -3,14 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add a comment</title>
+    <title>Add Comment</title>
   </head>
   <body>
     <form method="POST" data-th-action="@{/comment}" data-th-object="${comment}">
-      <td>Comments:</td>
-      <td>
+      <div>Comment:
+        <br><br>
         <textarea name="comment" cols="30" rows="4"></textarea>
-      </td>
+      </div>
+      <br>
       <button type="submit">Add comment</button>
     </form>
   </body>

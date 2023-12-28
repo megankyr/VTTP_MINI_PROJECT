@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selection</title>
+    <title>Film Pick</title>
 </head>
 <body>
-    <div>Movie pick: <span data-th-text="${movieName}"></span></div>
     <form method="GET" data-th-action="@{/eventdetails}">
-        <button type="submit">Sort out my event details!</button>
+        <div>Film pick: <span data-th-text="${movieName}"></span></div>
+        <br>
+        <button type="submit">Next</button>
+    </form>
 </body>
 </html>

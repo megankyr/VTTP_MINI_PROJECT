@@ -7,18 +7,10 @@
   </head>
   <body>
     <form method="GET" data-th-action="@{/movies/title}">
-      <table>
-        <tr>
-            <td>Title:</td>
-            <td>
-                <input type="text" name="title" required>
-            </td>
-        </tr>
-        <tr>
-        <td>
-          <button type="submit">Search</button>
-        </td>
-      </table>
+      <div>
+        Title: <input type="text" name="title" required />
+        <button type="submit">Search</button>
+      </div>
     </form>
   </body>
 </html>
