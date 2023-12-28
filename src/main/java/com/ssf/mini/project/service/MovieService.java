@@ -28,6 +28,9 @@ import jakarta.json.JsonValue;
 @Service
 public class MovieService {
 
+        @Value("${accesstoken}")
+        private String accessToken;
+
         private List<GenreCode> gcodes = null;
         private List<CountryCode> ccodes = null;
 
@@ -42,7 +45,7 @@ public class MovieService {
 
                         RequestEntity<Void> req = RequestEntity.get(url)
                                         .header("Authorization",
-                                                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                                        accessToken)
                                         .build();
 
                         RestTemplate template = new RestTemplate();
@@ -71,7 +74,7 @@ public class MovieService {
 
                 RequestEntity<Void> req = RequestEntity.get(url)
                                 .header("Authorization",
-                                                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                                accessToken)
                                 .build();
 
                 RestTemplate template = new RestTemplate();
@@ -94,7 +97,7 @@ public class MovieService {
 
                 RequestEntity<Void> req = RequestEntity.get(url)
                                 .header("Authorization",
-                                                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                                accessToken)
                                 .build();
 
                 RestTemplate template = new RestTemplate();
@@ -134,7 +137,7 @@ public class MovieService {
                         RequestEntity<Void> req = RequestEntity
                                         .get(url)
                                         .header("Authorization",
-                                                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                                        accessToken)
                                         .build();
 
                         RestTemplate template = new RestTemplate();
@@ -173,7 +176,7 @@ public class MovieService {
                         RequestEntity<Void> req = RequestEntity
                                         .get(url)
                                         .header("Authorization",
-                                                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDZhMDkyNzU3MDNiNDY3MGFhZWJkZjRlNTk1NTNhOSIsInN1YiI6IjY1ODExMGE1YmYwZjYzMDhhZTYyM2YzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sxCJm3qOl4locHE9EM2jpGdmqF4sHVAUGW0OLr-bhuQ")
+                                                        accessToken)
                                         .build();
 
                         RestTemplate template = new RestTemplate();
