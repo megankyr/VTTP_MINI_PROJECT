@@ -8,5 +8,8 @@ public class MiniProjectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MiniProjectApplication.class, args);
+
+		String accessToken = System.getenv("ACCESS_TOKEN");
+		System.out.println("ACCESS_TOKEN: " + accessToken);
 	}
 }
