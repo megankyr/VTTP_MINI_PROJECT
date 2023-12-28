@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,64 +26,10 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping
-public class IndexController {
+public class EventController {
 
     @Autowired
     EventRepo eventRepo;
-
-    @GetMapping("/")
-    public String getIndex() {
-        return "index";
-    }
-
-    @GetMapping("/login")
-    public String getLogin(@RequestParam String name, Model model, HttpSession session) {
-        session.setAttribute("name", name);
-        if (eventRepo.isHost(name) || eventRepo.isMember(name)) {
-            Event event = eventRepo.getEvent(name);
-            List<User> eventMembers = eventRepo.getEventMembers(name);
-            model.addAttribute("event", event);
-            model.addAttribute("eventMembers", eventMembers);
-            if (eventRepo.getComments(name) != null) {
-                List<Comment> comments = eventRepo.getComments(name);
-                model.addAttribute("comments", comments);
-            }
-
-            return "existingevent";
-        } else {
-            Event event = new Event();
-            event.setEventHost(name);
-            session.setAttribute("eventHost", name);
-
-            return "newevent";
-        }
-    }
-
-    @GetMapping("/comment")
-    public String showCommentForm(Model model) {
-        model.addAttribute("comment", new Comment());
-        return "comment";
-    }
-
-    @PostMapping("/comment")
-    public ModelAndView processComment(@ModelAttribute Comment comment,
-            HttpSession session) {
-        ModelAndView mav = new ModelAndView("commentadded");
-        String author = (String) session.getAttribute("name");
-        comment.setAuthor(author);
-        eventRepo.saveComment(comment);
-        return mav;
-    }
-
-    @GetMapping("/search")
-    public String displaySearchOptions() {
-        return "search";
-    }
-
-    @GetMapping("/search/title")
-    public String searchTitle() {
-        return "title";
-    }
 
     @GetMapping("/eventdetails")
     public String getEventDetails(Model model, HttpSession session) {
@@ -97,6 +45,15 @@ public class IndexController {
         if (binding.hasErrors()) {
             return "eventdetails";
         }
+
+        String eventName = event.getEventName();
+        if (eventRepo.eventNameExists(eventName)) {
+            FieldError err = new FieldError("event", "eventName",
+                    "Event name already exists, please pick another name");
+            binding.addError(err);
+            return "eventdetails";
+        }
+
         session.setAttribute("event", event);
         return "redirect:/guests";
     }
@@ -121,6 +78,12 @@ public class IndexController {
 
         if (binding.hasErrors()) {
             mav.addObject("user", user);
+            return mav;
+        }
+
+        String guestName = user.getName();
+        if (eventRepo.isHost(guestName) || eventRepo.isMember(guestName)) {
+            mav.addObject("error", "Guest is not free, please pick another guest");
             return mav;
         }
 

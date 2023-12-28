@@ -13,24 +13,27 @@
       <input type="text" data-th-field="*{name}" id="name" name="name" />
       <p th:errors="*{name}"></p>
       <br />
-      
+
+      <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+      </div>
+
       <button type="submit" formaction="/postguests">Done Adding Users</button>
       <button type="submit" formaction="/guests">Add user</button>
     </form>
     <div data-th-unless="${#lists.isEmpty(eventMembers)}">
       <table border="1">
-          <thead>
-              <tr>
-                  <th>Guest Names</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr data-th-each="e : ${eventMembers}">
-                  <td><span data-th-text="${e.getName}"></span></td>
-              </tr>
-          </tbody>
+        <thead>
+          <tr>
+            <th>Guest Names</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-th-each="e : ${eventMembers}">
+            <td><span data-th-text="${e.getName}"></span></td>
+          </tr>
+        </tbody>
       </table>
-  </div>
-  
+    </div>
   </body>
 </html>

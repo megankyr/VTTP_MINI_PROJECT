@@ -1,11 +1,14 @@
 package com.ssf.mini.project.repo;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,6 +31,7 @@ public class EventRepo {
     private static final String COMMENT_HASH_KEY = "comments";
 
     public void saveEvent(Event event) {
+
         String key = EVENT_HASH_KEY + ":" + event.getEventName();
         template.opsForHash().put(key, "eventName", event.getEventName());
         template.opsForHash().put(key, "eventPlace", event.getEventPlace());
@@ -36,16 +40,27 @@ public class EventRepo {
         template.opsForHash().put(key, "eventHost", event.getEventHost());
         template.opsForHash().put(key, "eventMovie", event.getEventMovie());
 
+        LocalDate eventDate = event.getEventDate();
+        long expiry = calculateExpiry(eventDate);
+        template.expire(key, expiry, TimeUnit.SECONDS);
+
         String hostName = event.getEventHost();
         String eventName = event.getEventName();
+
         template.opsForValue().set(hostName, eventName);
+        template.expire(hostName, expiry, TimeUnit.SECONDS);
 
         List<User> members = event.getEventMembers();
         for (User member : members) {
             String memberName = member.getName();
+
             template.opsForValue().set(memberName, eventName);
+            template.expire(memberName, expiry, TimeUnit.SECONDS);
+
             String memberKey = MEMBER_SET_KEY + ":" + eventName;
+
             template.opsForSet().add(memberKey, memberName);
+            template.expire(memberKey, expiry, TimeUnit.SECONDS);
 
         }
 
@@ -57,6 +72,11 @@ public class EventRepo {
 
     public boolean isMember(String name) {
         return template.hasKey(name);
+    }
+
+    public boolean eventNameExists(String eventName) {
+        String key = EVENT_HASH_KEY + ":" + eventName;
+        return template.hasKey(key);
     }
 
     public Event getEvent(String name) {
@@ -101,7 +121,14 @@ public class EventRepo {
     public void saveComment(Comment comment) {
         String eventName = template.opsForValue().get(comment.getAuthor());
         String key = COMMENT_HASH_KEY + ":" + eventName;
+
         template.opsForHash().put(key, comment.getAuthor(), comment.getComment());
+        String eventKey = EVENT_HASH_KEY + ":" + eventName;
+        String eventDateString = (String) template.opsForHash().get(eventKey, "eventDate");
+        LocalDate eventDate = LocalDate.parse(eventDateString);
+        long expiry = calculateExpiry(eventDate);
+        template.expire(key, expiry, TimeUnit.SECONDS);
+
     }
 
     public List<Comment> getComments(String name) {
@@ -118,6 +145,18 @@ public class EventRepo {
         }
         return comments;
 
+    }
+
+    public long calculateExpiry(LocalDate eventDate) {
+        LocalDate now = LocalDate.now();
+        LocalDateTime nowStartOfDay = now.atStartOfDay();
+        LocalDateTime eventEndOfDay = eventDate.atTime(LocalTime.MAX);
+
+        Duration duration = Duration.between(nowStartOfDay, eventEndOfDay);
+
+        long expiry = duration.getSeconds();
+
+        return expiry;
     }
 
 }
