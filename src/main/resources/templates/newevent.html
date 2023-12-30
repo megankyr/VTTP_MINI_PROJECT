@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Host Film Night</title>
 </head>
-<body>
+<body class="newevent">
     <p>You don't have any movies lined up! Host one?</p>
     <form method="GET" data-th-action="@{/search}">
     <button type="submit">Yes!</button>

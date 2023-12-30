@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Film Club Invite</title>
   </head>
-  <body>
+  <body class = existingevent>
     <form method="GET" data-th-action="@{/comment}">
       <h2><span th:text="${event.eventName}"></span> Film Club</h2>
       <p>Watching <span th:text="${event.eventMovie}"></span></p>

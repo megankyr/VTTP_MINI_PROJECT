@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Final Check</title>
   </head>
-  <body>
+  <body class="final">
     <h2>Everything's set!</h2>
     <form method="POST" data-th-action="@{/final}">
       <p>Film Club: <span th:text="${event.eventName}"></span></p>

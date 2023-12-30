@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Film Club Details</title>
   </head>
-  <body>
+  <body class="eventdetails">
     <form method="POST" action="/eventdetails" data-th-object="${event}">
       <h2>Film club details:</h2>
       <label for="eventName">Film Club Name:</label>

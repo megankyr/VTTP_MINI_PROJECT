@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Search by Genre</title>
   </head>
-  <body>
+  <body class="genre">
     <form method="GET" data-th-action="@{/movies/genre}">
       <div>
         Genre:

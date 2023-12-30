@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Movies by Title</title>
   </head>
-  <body>
+  <body class="titlemovies">
     <div data-th-if="${#lists.isEmpty(movies)}">
       <p>No movies found, please pick another one!</p>
     </div>

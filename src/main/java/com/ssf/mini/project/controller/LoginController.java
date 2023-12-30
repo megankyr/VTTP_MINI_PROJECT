@@ -21,9 +21,15 @@ public class LoginController {
     @Autowired
     EventRepo eventRepo;
 
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
+
+
      @GetMapping("/")
     public String getIndex() {
-        return "index";
+        return "home";
     }
 
     @GetMapping("/login")
