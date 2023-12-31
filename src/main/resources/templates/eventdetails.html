@@ -7,7 +7,7 @@
     <title>Film Club Details</title>
   </head>
   <body class="eventdetails">
-    <div>
+    <div class="eventdetails">
       <form method="POST" action="/eventdetails" data-th-object="${event}">
         <h2>Film club details:</h2>
         <label for="eventName">Film Club Name:</label>
@@ -17,7 +17,7 @@
           id="eventName"
           name="eventName"
         />
-        <p th:errors="*{eventName}"></p>
+        <p class="error" th:errors="*{eventName}"></p>
         <br><br>
         <label for="eventMovie">Film Pick:</label>
         <input
@@ -25,7 +25,6 @@
           id="eventMovie"
           name="eventMovie"
           th:value="${session.selectedMovie}"
-          size="50"
           readonly
         />
         <br><br>
@@ -45,7 +44,7 @@
           id="eventPlace"
           name="eventPlace"
         />
-        <p th:errors="*{eventPlace}"></p>
+        <p class="error" th:errors="*{eventPlace}"></p>
         <br><br>
         <label for="eventDate">Date:</label>
         <input
@@ -54,7 +53,7 @@
           id="eventDate"
           name="eventDate"
         />
-        <p th:errors="*{eventDate}"></p>
+        <p class="error" th:errors="*{eventDate}"></p>
         <br><br>
         <label for="eventTime">Time:</label>
         <input
@@ -63,9 +62,9 @@
           id="eventTime"
           name="eventTime"
         />
-        <p th:errors="*{eventTime}"></p>
+        <p class="error" th:errors="*{eventTime}"></p>
         <br><br>
-        <button type="submit">Next</button>
+        <button class="button" type="submit">Next</button>
       </form>
     </div>
     <footer>

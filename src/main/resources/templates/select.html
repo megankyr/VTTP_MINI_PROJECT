@@ -1,21 +1,19 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>Film Pick</title>
-</head>
-<body class="select">
+  </head>
+  <body class="select">
     <div>
-        <form method="GET" data-th-action="@{/eventdetails}">
-            <div>Film pick: <span data-th-text="${movieName}"></span></div>
-            <br>
-            <button type="submit">Next</button>
-        </form>
+      <p>
+        You've picked "<span data-th-text="${movieName}"></span>",
+        <a th:href="@{/eventdetails}">now let's start the invite!</a>
+      </p>
     </div>
     <footer>
-        <p>Still from Millennium Mambo (Hou Hsiao-Hsien, 2001)</p>
-      </footer>
-</body>
+      <p>Still from Millennium Mambo (Hou Hsiao-Hsien, 2001)</p>
+    </footer>
+  </body>
 </html>

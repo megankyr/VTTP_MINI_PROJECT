@@ -1,5 +1,27 @@
+a {
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+}
+
+p.error {
+  color: red;
+}
+
+.eventdetails button {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, .2);
+  border-radius: 40px;
+  font-size: 16px;
+  color: #fff;
+}
+
 body {
   font-family: "Roboto", sans-serif;
+  color: #fff;
 }
 
 div {
@@ -38,6 +60,18 @@ body.home {
   color: #fff;
 }
 
+.eventdetails input {
+  width: auto;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, .2);
+  border-radius: 40px;
+  font-size: 16px;
+  color: #fff;
+  padding: 10px 10px 10px 10px;
+}
+
 body.existingevent {
   background-image: url("../images/in-the-mood-for-love.jpg");
   background-size: cover;
@@ -49,8 +83,15 @@ body.newevent {
 }
 
 body.search {
-  background-image: url("../images/the-woman-who-ran.jpg");
+  background-image: url("../images/moonrise-kingdom.jpg");
   background-size: cover;
+}
+
+div.search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 body.title {
@@ -58,35 +99,48 @@ body.title {
   background-size: cover;
 }
 
+.search-box input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, .2);
+  border-radius: 40px;
+  font-size: 16px;
+  color: #fff;
+  padding: 20px 45px 20px 20px;
+}
+
+.search-box input::placeholder {
+  color: #fff;
+}
+
 body.genre {
   background-image: url("../images/oldboy.jpg");
   background-size: cover;
 }
 
+select {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, .2);
+  font-size: 16px;
+  color: #fff;
+  padding: 20px 45px 20px 20px;
+}
+
+option {
+  color: black;
+}
+
+
 body.country {
   background-image: url("../images/shirkers.jpg");
   background-size: cover;
-}
-
-body.titlemovies {
-  background-image: url("../images/still-the-water.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-body.genremovies {
-  background-image: url("../images/aftersun.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-body.countrymovies {
-  background-image: url("../images/portrait-of-a-lady-on-fire.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 body.select {

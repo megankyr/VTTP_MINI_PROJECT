@@ -9,8 +9,9 @@
   <body class="title">
     <div>
       <form method="GET" data-th-action="@{/movies/title}">
-        Title: <input type="text" name="title" required />
-        <button type="submit">Search</button>
+        <div class="search-box">
+          <input type="text" name="title" placeholder="Title">
+        </div>
     </form>
     </div>
     <footer>

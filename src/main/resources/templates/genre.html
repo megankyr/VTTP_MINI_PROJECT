@@ -3,26 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>Search by Genre</title>
   </head>
   <body class="genre">
-      <div>
-        <form method="GET" data-th-action="@{/movies/genre}">
-        Genre:
-        <select name="genre">
-          <option
-            data-th-each="gcode : ${gcodes}"
-            data-th-value="${gcode.code}"
-            data-th-text="${gcode.name}"
-          ></option>
-        </select>
-        <button type="submit">Search</button>
+    <div>
+      <form method="GET" data-th-action="@{/movies/genre}">
+          <select name="genre" onchange="this.form.submit()">
+            <option
+              data-th-each="gcode : ${gcodes}"
+              data-th-value="${gcode.code}"
+              data-th-text="${gcode.name}"
+            ></option>
+          </select>
       </form>
-      </div>
-      <footer>
-        <p>Still from Oldboy (Park Chan-wook, 2004)</p>
-      </footer>
-
+    </div>
+    <footer>
+      <p>Still from Oldboy (Park Chan-wook, 2004)</p>
+    </footer>
   </body>
 </html>
+
