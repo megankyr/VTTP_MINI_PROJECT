@@ -7,35 +7,40 @@
     <title>Guests</title>
   </head>
   <body class="guests">
-    <form method="POST" data-th-object="${user}">
-      <h2>Let's add guests!</h2>
-
-      <label for="name">Guests</label>
-      <input type="text" data-th-field="*{name}" id="name" name="name" />
-      <p th:errors="*{name}"></p>
-      <br />
-
-      <div th:if="${error}" class="error">
-        <p th:text="${error}"></p>
+    <div>
+      <form method="POST" data-th-object="${user}">
+        <h2>Let's add guests!</h2>
+  
+        <label for="name">Guests</label>
+        <input type="text" data-th-field="*{name}" id="name" name="name" />
+        <p th:errors="*{name}"></p>
+        <br />
+  
+        <div th:if="${error}" class="error">
+          <p th:text="${error}"></p>
+        </div>
+        <br>
+        <button type="submit" formaction="/guests">Add guest</button>
+        <button type="submit" formaction="/postguests">Done adding guests</button>
+      </form>
+      <div data-th-unless="${#lists.isEmpty(eventMembers)}">
+        <br>
+        <table border="1">
+          <thead>
+            <tr>
+              <th>Guests:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-th-each="e : ${eventMembers}">
+              <td><span data-th-text="${e.getName}"></span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <br>
-      <button type="submit" formaction="/guests">Add guest</button>
-      <button type="submit" formaction="/postguests">Done adding guests</button>
-    </form>
-    <div data-th-unless="${#lists.isEmpty(eventMembers)}">
-      <br>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Guests:</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-th-each="e : ${eventMembers}">
-            <td><span data-th-text="${e.getName}"></span></td>
-          </tr>
-        </tbody>
-      </table>
     </div>
+    <footer>
+      <p>Still from Tampopo (Juzo Itami, 1985)</p>
+    </footer>
   </body>
 </html>

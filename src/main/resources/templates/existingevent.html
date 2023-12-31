@@ -7,23 +7,28 @@
     <title>Film Club Invite</title>
   </head>
   <body class = existingevent>
-    <form method="GET" data-th-action="@{/comment}">
-      <h2><span th:text="${event.eventName}"></span> Film Club</h2>
-      <p>Watching <span th:text="${event.eventMovie}"></span></p>
-      <p>With <li th:each="member : ${eventMembers}"><span th:text="${member.name}"></span></li></p>
-      <p>Hosted by <span th:text="${event.eventHost}"></span></p>
-      <p>At <span th:text="${event.eventPlace}"></span></p>
-      <p>On <span th:text="${event.eventDate}"></span>, <span th:text="${event.eventTime}"></span></p>
-
-      <div data-th-unless="${#lists.isEmpty(comments)}">
-        <p>Comments:</p>
-        <ul>
-          <li th:each="comment : ${comments}">
-            <p><span th:text="${comment.author}"></span> says <span th:text="${comment.comment}"></span></p>
-          </li>
-        </ul>
-      </div>
-      <button type="submit">Add comment</button>
-    </form>
+    <div>
+      <form method="GET" data-th-action="@{/comment}">
+        <h2><span th:text="${event.eventName}"></span> Film Club</h2>
+        <p>Watching <span th:text="${event.eventMovie}"></span></p>
+        <p>With <li th:each="member : ${eventMembers}"><span th:text="${member.name}"></span></li></p>
+        <p>Hosted by <span th:text="${event.eventHost}"></span></p>
+        <p>At <span th:text="${event.eventPlace}"></span></p>
+        <p>On <span th:text="${event.eventDate}"></span>, <span th:text="${event.eventTime}"></span></p>
+  
+        <div data-th-unless="${#lists.isEmpty(comments)}">
+          <p>Comments:</p>
+          <ul>
+            <li th:each="comment : ${comments}">
+              <p><span th:text="${comment.author}"></span> says <span th:text="${comment.comment}"></span></p>
+            </li>
+          </ul>
+        </div>
+        <button type="submit">Add comment</button>
+      </form>
+    </div>
+    <footer>
+      <p>Still from In the Mood for Love (Wong Kar-wai, 2000)</p>
+    </footer>
   </body>
 </html>

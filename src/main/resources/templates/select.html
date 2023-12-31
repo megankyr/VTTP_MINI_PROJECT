@@ -7,10 +7,15 @@
     <title>Film Pick</title>
 </head>
 <body class="select">
-    <form method="GET" data-th-action="@{/eventdetails}">
-        <div>Film pick: <span data-th-text="${movieName}"></span></div>
-        <br>
-        <button type="submit">Next</button>
-    </form>
+    <div>
+        <form method="GET" data-th-action="@{/eventdetails}">
+            <div>Film pick: <span data-th-text="${movieName}"></span></div>
+            <br>
+            <button type="submit">Next</button>
+        </form>
+    </div>
+    <footer>
+        <p>Still from Millennium Mambo (Hou Hsiao-Hsien, 2001)</p>
+      </footer>
 </body>
 </html>

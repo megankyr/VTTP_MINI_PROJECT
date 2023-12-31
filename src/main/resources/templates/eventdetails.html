@@ -7,64 +7,69 @@
     <title>Film Club Details</title>
   </head>
   <body class="eventdetails">
-    <form method="POST" action="/eventdetails" data-th-object="${event}">
-      <h2>Film club details:</h2>
-      <label for="eventName">Film Club Name:</label>
-      <input
-        type="text"
-        data-th-field="*{eventName}"
-        id="eventName"
-        name="eventName"
-      />
-      <p th:errors="*{eventName}"></p>
-      <br><br>
-      <label for="eventMovie">Film Pick:</label>
-      <input
-        type="text"
-        id="eventMovie"
-        name="eventMovie"
-        th:value="${session.selectedMovie}"
-        size="50"
-        readonly
-      />
-      <br><br>
-      <label for="eventHost">Hosted By:</label>
-      <input
-        type="text"
-        id="eventHost"
-        name="eventHost"
-        th:value="${session.eventHost}"
-        readonly
-      />
-      <br><br>
-      <label for="eventPlace">At:</label>
-      <input
-        type="text"
-        data-th-field="*{eventPlace}"
-        id="eventPlace"
-        name="eventPlace"
-      />
-      <p th:errors="*{eventPlace}"></p>
-      <br><br>
-      <label for="eventDate">Date:</label>
-      <input
-        type="date"
-        data-th-field="*{eventDate}"
-        id="eventDate"
-        name="eventDate"
-      />
-      <p th:errors="*{eventDate}"></p>
-      <br><br>
-      <label for="eventTime">Time:</label>
-      <input
-        type="time"
-        data-th-field="*{eventTime}"
-        id="eventTime"
-        name="eventTime"
-      />
-      <p th:errors="*{eventTime}"></p>
-      <br><br>
-      <button type="submit">Next</button>
-    </form>
+    <div>
+      <form method="POST" action="/eventdetails" data-th-object="${event}">
+        <h2>Film club details:</h2>
+        <label for="eventName">Film Club Name:</label>
+        <input
+          type="text"
+          data-th-field="*{eventName}"
+          id="eventName"
+          name="eventName"
+        />
+        <p th:errors="*{eventName}"></p>
+        <br><br>
+        <label for="eventMovie">Film Pick:</label>
+        <input
+          type="text"
+          id="eventMovie"
+          name="eventMovie"
+          th:value="${session.selectedMovie}"
+          size="50"
+          readonly
+        />
+        <br><br>
+        <label for="eventHost">Hosted By:</label>
+        <input
+          type="text"
+          id="eventHost"
+          name="eventHost"
+          th:value="${session.eventHost}"
+          readonly
+        />
+        <br><br>
+        <label for="eventPlace">At:</label>
+        <input
+          type="text"
+          data-th-field="*{eventPlace}"
+          id="eventPlace"
+          name="eventPlace"
+        />
+        <p th:errors="*{eventPlace}"></p>
+        <br><br>
+        <label for="eventDate">Date:</label>
+        <input
+          type="date"
+          data-th-field="*{eventDate}"
+          id="eventDate"
+          name="eventDate"
+        />
+        <p th:errors="*{eventDate}"></p>
+        <br><br>
+        <label for="eventTime">Time:</label>
+        <input
+          type="time"
+          data-th-field="*{eventTime}"
+          id="eventTime"
+          name="eventTime"
+        />
+        <p th:errors="*{eventTime}"></p>
+        <br><br>
+        <button type="submit">Next</button>
+      </form>
+    </div>
+    <footer>
+      <p>Still from Taipei Story (Edward Yang, 1985)</p>
+    </footer>
   </body>
 </html>
