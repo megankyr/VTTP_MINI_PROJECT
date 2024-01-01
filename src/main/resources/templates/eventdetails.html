@@ -9,15 +9,6 @@
   <body class="eventdetails">
     <div class="eventdetails">
       <form method="POST" action="/eventdetails" data-th-object="${event}">
-        <label for="eventName">Film Club Name:</label>
-        <input
-          type="text"
-          data-th-field="*{eventName}"
-          id="eventName"
-          name="eventName"
-        />
-        <p class="error" th:errors="*{eventName}"></p>
-        <br><br>
         <label for="eventMovie">Film Pick:</label>
         <input
           type="text"
@@ -36,14 +27,14 @@
           readonly
         />
         <br><br>
-        <label for="eventPlace">At:</label>
+        <label for="eventName">Film Club Name:</label>
         <input
           type="text"
-          data-th-field="*{eventPlace}"
-          id="eventPlace"
-          name="eventPlace"
+          data-th-field="*{eventName}"
+          id="eventName"
+          name="eventName"
         />
-        <p class="error" th:errors="*{eventPlace}"></p>
+        <p class="error" th:errors="*{eventName}"></p>
         <br><br>
         <label for="eventDate">Date:</label>
         <input
@@ -62,6 +53,15 @@
           name="eventTime"
         />
         <p class="error" th:errors="*{eventTime}"></p>
+        <br><br>
+        <label for="eventPlace">Location:</label>
+        <input
+          type="text"
+          data-th-field="*{eventPlace}"
+          id="eventPlace"
+          name="eventPlace"
+        />
+        <p class="error" th:errors="*{eventPlace}"></p>
         <br><br>
         <button class="button" type="submit">Next</button>
       </form>

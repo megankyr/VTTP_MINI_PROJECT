@@ -3,15 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>Final Check</title>
   </head>
   <body class="final">
     <div>
       <form method="POST" data-th-action="@{/final}">
-        <p>Film Club: <span th:text="${event.eventName}"></span></p>
-        <p>Watching: <span th:text="${event.eventMovie}"></span></p>
+        <p>Film Pick: <span th:text="${event.eventMovie}"></span></p>
         <p>Hosted By: <span th:text="${event.eventHost}"></span></p>
+        <p>Film Club Name: <span th:text="${event.eventName}"></span></p>
+        <p>Date: <span th:text="${event.eventDate}"></span></p>
+        <p>Time: <span th:text="${event.eventTime}"></span></p>
+        <p>Location: <span th:text="${event.eventPlace}"></span></p>
         <span data-th-unless="${#lists.isEmpty(eventMembers)}">
           <p>With:</p>
           <ul>
@@ -20,15 +23,15 @@
             </li>
           </ul>
         </span>
-        <p>Date: <span th:text="${event.eventDate}"></span></p>
-        <p>Time: <span th:text="${event.eventTime}"></span></p>
-        <p>At: <span th:text="${event.eventPlace}"></span></p>
-        
+
         <button class="button" type="submit">Save details!</button>
       </form>
     </div>
     <footer>
-      <p>Still from Everything Everywhere All at Once (Daniel Kwan, Daniel Scheinert, 2022)</p>
+      <p>
+        Still from Everything Everywhere All at Once (Daniel Kwan, Daniel
+        Scheinert, 2022)
+      </p>
     </footer>
   </body>
 </html>

@@ -3,24 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>Film Club Invite</title>
   </head>
-  <body class = existingevent>
+  <body class="existingevent">
     <div>
       <form method="GET" data-th-action="@{/comment}">
         <h2><span th:text="${event.eventName}"></span> Film Club</h2>
-        <p>Watching <span th:text="${event.eventMovie}"></span></p>
-        <p>With <li th:each="member : ${eventMembers}"><span th:text="${member.name}"></span></li></p>
-        <p>Hosted by <span th:text="${event.eventHost}"></span></p>
-        <p>At <span th:text="${event.eventPlace}"></span></p>
-        <p>On <span th:text="${event.eventDate}"></span>, <span th:text="${event.eventTime}"></span></p>
-  
+        <p>Film Pick: <span th:text="${event.eventMovie}"></span></p>
+        <p>Hosted By: <span th:text="${event.eventHost}"></span></p>
+        <p>Date: <span th:text="${event.eventDate}"></span></p>
+        <p>Time: <span th:text="${event.eventTime}"></span></p>
+        <p>Location: <span th:text="${event.eventPlace}"></span></p>
+        <p>
+          With
+          <li th:each="member : ${eventMembers}">
+            <span th:text="${member.name}"></span>
+          </li>
+        </p>
+
         <span data-th-unless="${#lists.isEmpty(comments)}">
           <p>Comments:</p>
           <ul>
             <li th:each="comment : ${comments}">
-              <p><span th:text="${comment.author}"></span> says <span th:text="${comment.comment}"></span></p>
+              <p>
+                <span th:text="${comment.author}"></span> says
+                <span th:text="${comment.comment}"></span>
+              </p>
             </li>
           </ul>
         </span>
