@@ -7,25 +7,24 @@
     <title>Final Check</title>
   </head>
   <body class="final">
-    <h2>Everything's set!</h2>
     <div>
       <form method="POST" data-th-action="@{/final}">
         <p>Film Club: <span th:text="${event.eventName}"></span></p>
         <p>Watching: <span th:text="${event.eventMovie}"></span></p>
         <p>Hosted By: <span th:text="${event.eventHost}"></span></p>
-        <div data-th-unless="${#lists.isEmpty(eventMembers)}">
+        <span data-th-unless="${#lists.isEmpty(eventMembers)}">
           <p>With:</p>
           <ul>
             <li th:each="member : ${eventMembers}">
               <span th:text="${member.name}"></span>
             </li>
           </ul>
-        </div>
+        </span>
         <p>Date: <span th:text="${event.eventDate}"></span></p>
         <p>Time: <span th:text="${event.eventTime}"></span></p>
         <p>At: <span th:text="${event.eventPlace}"></span></p>
         
-        <button type="submit">Save details!</button>
+        <button class="button" type="submit">Save details!</button>
       </form>
     </div>
     <footer>

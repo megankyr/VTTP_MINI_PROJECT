@@ -80,15 +80,18 @@ public class EventController {
 
         String guestName = user.getName();
         if (eventRepo.isHost(guestName) || eventRepo.isMember(guestName)) {
-            mav.addObject("error", "Guest is not free, please pick another guest");
+            FieldError err = new FieldError("user", "name", "Guest is not free, please pick another guest");
+            binding.addError(err);
+            mav.addObject("user", user);
             return mav;
         }
 
         eventMembers.add(user);
+        mav.addObject("success", true);
         session.setAttribute("eventMembers", eventMembers);
         mav.addObject("user", new User());
         mav.addObject("eventMembers", eventMembers);
-
+        
         return mav;
     }
 

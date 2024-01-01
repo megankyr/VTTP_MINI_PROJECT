@@ -3,41 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>Guests</title>
   </head>
   <body class="guests">
-    <div>
+    <div class="guests">
       <form method="POST" data-th-object="${user}">
-        <h2>Let's add guests!</h2>
-  
-        <label for="name">Guests</label>
-        <input type="text" data-th-field="*{name}" id="name" name="name" />
-        <p th:errors="*{name}"></p>
+        <input
+          type="text"
+          data-th-field="*{name}"
+          id="name"
+          name="name"
+          placeholder="Guest's Name"
+        />
+        <p class="error" th:errors="*{name}"></p>
+        <span th:if="${success}" class="success">
+          <p>Guest added!</p>
+        </span>
         <br />
-  
-        <div th:if="${error}" class="error">
-          <p th:text="${error}"></p>
-        </div>
         <br>
-        <button type="submit" formaction="/guests">Add guest</button>
-        <button type="submit" formaction="/postguests">Done adding guests</button>
+        <button class="button" type="submit" formaction="/guests">Add</button>
+        <button class="button" type="submit" formaction="/postguests">
+          Done
+        </button>
       </form>
-      <div data-th-unless="${#lists.isEmpty(eventMembers)}">
-        <br>
-        <table border="1">
-          <thead>
-            <tr>
-              <th>Guests:</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-th-each="e : ${eventMembers}">
-              <td><span data-th-text="${e.getName}"></span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
     <footer>
       <p>Still from Tampopo (Juzo Itami, 1985)</p>

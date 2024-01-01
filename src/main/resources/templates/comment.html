@@ -7,15 +7,10 @@
     <title>Add Comment</title>
   </head>
   <body class="comment">
-    <div>
+    <div class="comment">
       <form method="POST" data-th-action="@{/comment}" data-th-object="${comment}">
-        <div>Comment:
-          <br><br>
-          <textarea name="comment" cols="30" rows="4"></textarea>
-        </div>
-        <br>
-        <button type="submit">Add comment</button>
-      </form>
+          <input type="text" name="comment" placeholder="Leave a comment">
+        </form>
     </div>
     <footer>
       <p>Still from Chungking Express (Wong Kar-wai, 1994)</p>

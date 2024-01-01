@@ -16,15 +16,15 @@
         <p>At <span th:text="${event.eventPlace}"></span></p>
         <p>On <span th:text="${event.eventDate}"></span>, <span th:text="${event.eventTime}"></span></p>
   
-        <div data-th-unless="${#lists.isEmpty(comments)}">
+        <span data-th-unless="${#lists.isEmpty(comments)}">
           <p>Comments:</p>
           <ul>
             <li th:each="comment : ${comments}">
               <p><span th:text="${comment.author}"></span> says <span th:text="${comment.comment}"></span></p>
             </li>
           </ul>
-        </div>
-        <button type="submit">Add comment</button>
+        </span>
+        <button class="button" type="submit">Add a comment</button>
       </form>
     </div>
     <footer>
