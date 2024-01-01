@@ -138,6 +138,7 @@ public class EventController {
         }
 
         eventRepo.saveEvent(event);
+        mav.addObject("name", session.getAttribute("name"));
         session.invalidate();
         return mav;
 
