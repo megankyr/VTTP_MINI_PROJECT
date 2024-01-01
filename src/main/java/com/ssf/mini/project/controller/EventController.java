@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ssf.mini.project.model.Event;
 import com.ssf.mini.project.model.User;
 import com.ssf.mini.project.repo.EventRepo;
+import com.ssf.mini.project.service.EventService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -27,6 +28,9 @@ public class EventController {
 
     @Autowired
     EventRepo eventRepo;
+
+    @Autowired
+    EventService eventService;
 
     @GetMapping("/eventdetails")
     public String getEventDetails(Model model, HttpSession session) {
@@ -79,7 +83,7 @@ public class EventController {
         }
 
         String guestName = user.getName();
-        if (eventRepo.isHost(guestName) || eventRepo.isMember(guestName)) {
+        if (eventRepo.isHost(guestName) || eventRepo.isMember(guestName) || eventService.isGuest(eventMembers, guestName))  {
             FieldError err = new FieldError("user", "name", "Guest is not free, please pick another guest");
             binding.addError(err);
             mav.addObject("user", user);
@@ -87,8 +91,8 @@ public class EventController {
         }
 
         eventMembers.add(user);
-        mav.addObject("success", true);
         session.setAttribute("eventMembers", eventMembers);
+        mav.addObject("success", true);
         mav.addObject("user", new User());
         mav.addObject("eventMembers", eventMembers);
         
