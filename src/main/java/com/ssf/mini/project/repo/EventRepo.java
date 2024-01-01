@@ -1,6 +1,7 @@
 package com.ssf.mini.project.repo;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -121,30 +122,32 @@ public class EventRepo {
     public void saveComment(Comment comment) {
         String eventName = template.opsForValue().get(comment.getAuthor());
         String key = COMMENT_HASH_KEY + ":" + eventName;
-
-        template.opsForHash().put(key, comment.getAuthor(), comment.getComment());
+        String commentKey = comment.getAuthor() + ":" + Instant.now();
+        
+    
+        template.opsForHash().put(key, commentKey, comment.getComment());
         String eventKey = EVENT_HASH_KEY + ":" + eventName;
         String eventDateString = (String) template.opsForHash().get(eventKey, "eventDate");
         LocalDate eventDate = LocalDate.parse(eventDateString);
         long expiry = calculateExpiry(eventDate);
         template.expire(key, expiry, TimeUnit.SECONDS);
-
     }
 
     public List<Comment> getComments(String name) {
         List<Comment> comments = new ArrayList<>();
         String eventName = template.opsForValue().get(name);
         String key = COMMENT_HASH_KEY + ":" + eventName;
-        if (template.hasKey(name)) {
+        
+        if (template.hasKey(key)) {
             Map<Object, Object> entries = template.opsForHash().entries(key);
             for (Map.Entry<Object, Object> entry : entries.entrySet()) {
-                String author = (String) entry.getKey();
+                String commentKey = (String) entry.getKey();
                 String comment = (String) entry.getValue();
+                String author = commentKey.split(":")[0]; 
                 comments.add(new Comment(comment, author));
             }
         }
         return comments;
-
     }
 
     public long calculateExpiry(LocalDate eventDate) {
