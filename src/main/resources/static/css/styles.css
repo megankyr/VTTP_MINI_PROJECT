@@ -1,6 +1,6 @@
 a {
   font-family: "Roboto", sans-serif;
-  color: #fff;
+  color: yellow;
 }
 
 p.error {
@@ -13,20 +13,20 @@ p.error {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, .2);
+  border: 2px solid yellow;
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: yellow;
 }
 
 .guests button {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, .2);
+  border: 2px solid yellow;
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: yellow;
 }
 
 .final button {
@@ -34,10 +34,10 @@ p.error {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, .2);
+  border: 2px solid yellow;
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: yellow;
 }
 
 .existingevent button {
@@ -45,15 +45,15 @@ p.error {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, .2);
+  border: 2px solid yellow;
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: yellow;
 }
 
 body {
   font-family: "Roboto", sans-serif;
-  color: #fff;
+  color: yellow;
 }
 
 div {
@@ -67,7 +67,7 @@ footer {
   display: flex;
   justify-content: center;
   font-size: 12px;
-  color: #fff;
+  color: yellow;
 }
 
 body.home {
@@ -75,21 +75,21 @@ body.home {
   background-size: cover;
 }
 
-.input-box input {
+.home input {
   width: 100%;
   height: 100%;
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, .2);
+  border: 2px solid yellow;
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: yellow;
   padding: 20px 45px 20px 20px;
 }
 
-.input-box input::placeholder {
-  color: #fff;
+.home input::placeholder {
+  color: yellow;
 }
 
 .eventdetails input {
@@ -97,10 +97,10 @@ body.home {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, .2);
+  border: 2px solid yellow;
   border-radius: 40px;
   font-size: 14px;
-  color: #fff;
+  color: yellow;
   padding: 10px 10px 10px 10px;
 }
 
@@ -109,6 +109,7 @@ div.eventdetails {
   flex-direction: column;
   align-items: center;
   font-size: 14px;
+  color: yellow;
 }
 
 .guests input {
@@ -116,15 +117,15 @@ div.eventdetails {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, .2);
+  border: 2px solid yellow;
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: yellow;
   padding: 10px 10px 10px 10px;
 }
 
 .guests input::placeholder {
-  color: #fff;
+  color: yellow;
 }
 
 body.existingevent {
@@ -160,15 +161,15 @@ body.title {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, .2);
+  border: 2px solid yellow;
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: yellow;
   padding: 20px 45px 20px 20px;
 }
 
 .search-box input::placeholder {
-  color: #fff;
+  color: yellow;
 }
 
 body.genre {
@@ -182,9 +183,9 @@ select {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, .2);
+  border: 2px solid yellow;
   font-size: 16px;
-  color: #fff;
+  color: yellow;
   padding: 20px 45px 20px 20px;
 }
 
@@ -251,17 +252,17 @@ div.comment {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, .2);
+  border: 2px solid yellow;
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: yellow;
   padding: 20px 45px 20px 20px;
   font-family: "Roboto", sans-serif;
-  color: #fff;
+  color: yellow;
 }
 
 .comment input::placeholder {
-  color: #fff;
+  color: yellow;
 }
 
 body.commentadded {
