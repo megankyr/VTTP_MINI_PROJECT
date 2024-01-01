@@ -7,6 +7,18 @@ p.error {
   color: red;
 }
 
+.button {
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 1px solid yellow;
+  border-radius: 15px;
+  font-size: 12px;
+  padding: 5px 10px 5px 10px;
+  color: yellow;
+  text-decoration: none;
+}
+
 .eventdetails button {
   width: 100%;
   height: 100%;

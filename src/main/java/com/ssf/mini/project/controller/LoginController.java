@@ -21,12 +21,6 @@ public class LoginController {
     @Autowired
     EventRepo eventRepo;
 
-    @GetMapping("/test")
-    public String test() {
-        return "test";
-    }
-
-
      @GetMapping("/")
     public String getIndex() {
         return "home";
@@ -53,6 +47,12 @@ public class LoginController {
 
             return "newevent";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "home";
     }
 
     
