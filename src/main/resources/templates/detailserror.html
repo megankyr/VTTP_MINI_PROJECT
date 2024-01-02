@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>Saving Error</title>
-</head>
-<body class="detailserror">
+  </head>
+  <body class="detailserror">
     <div>
-        <p>Sorry your invite could not be saved due to incomplete details, <a href="/">try again!</a></p>
+      <form method="GET" action="/">
+        <h3>Sorry your invite could not be saved</h3>
+        <button class="btn" type="submit">Try again</button>
+      </form>
     </div>
     <footer>
-        <p>Still from The Farewell (Lulu Wang, 2019)</p>
-      </footer>
-    
-</body>
+      <p>Still from The Farewell (Lulu Wang, 2019)</p>
+    </footer>
+  </body>
 </html>
