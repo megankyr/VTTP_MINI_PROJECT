@@ -55,5 +55,10 @@ public class LoginController {
         return "home";
     }
 
+    @GetMapping("/credits")
+    public String credits() {
+        return "credits";
+    }
+
     
 }

@@ -306,3 +306,16 @@ body.error {
   background-image: url("../images/grass.jpg");
   background-size: cover;
 }
+
+body.credits {
+  background-image: url("../images/portrait-of-a-lady-on-fire.jpg");
+  background-size: cover;
+}
+
+div.credits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  color: yellow;
+}
