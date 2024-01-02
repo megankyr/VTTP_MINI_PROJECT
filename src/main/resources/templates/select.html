@@ -8,13 +8,13 @@
   </head>
   <body class="select">
     <div>
-      <p>
-        You've picked "<span data-th-text="${movieName}"></span>", now let's 
-        <a th:href="@{/eventdetails}">start the invite!</a>
-      </p>
+      <form method="GET" action="/eventdetails">
+        <h3>You've picked "<span data-th-text="${movieName}"></span>"</h3>
+        <button class="btn" type="submit">Start hosting</button>
+      </form>
     </div>
     <footer>
-      <p>Still from Millennium Mambo (Hou Hsiao-Hsien, 2001)</p>
+      <p>Still from Taipei Story (Edward Yang, 1985)</p>
     </footer>
   </body>
 </html>

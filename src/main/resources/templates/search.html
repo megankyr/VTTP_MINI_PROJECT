@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>Search</title>
     <a href="/logout" class="button">Logout</a>
-</head>
-<body class="search">
+  </head>
+  <body class="search">
     <div class="search">
-        <h2>Search by:</h2>
-        <br>
-        <tr>
-            <a th:href="@{/search/title}">Title</a>
-        </tr>
-        <br>
-        <tr>
-            <a th:href="@{/search/genre}">Genre</a>
-        </tr>
-        <br>
-        <tr>
-            <a th:href="@{/search/country}">Country</a>
-        </tr>
+      <form method="GET">
+
+        <button class="button" type="submit" formaction="/search/title">
+          Title
+        </button>
+        <br />
+        <br />
+        <button class="button" type="submit" formaction="/search/genre">
+          Genre
+        </button>
+        <br />
+        <br />
+        <button class="button" type="submit" formaction="/search/country">
+          Country
+        </button>
+      </form>
     </div>
     <footer>
-        <p>Still from Moonrise Kingdom (Wes Anderson, 2012)</p>
-      </footer>
-</body>
+      <p>Still from Millennium Mambo (Hou Hsiao-Hsien, 2001)</p>
+    </footer>
+  </body>
 </html>

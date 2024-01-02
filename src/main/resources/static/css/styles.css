@@ -19,19 +19,8 @@ p.error {
   text-decoration: none;
 }
 
-.eventdetails button {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  border: 2px solid yellow;
-  border-radius: 40px;
-  font-size: 16px;
-  color: yellow;
-}
-
 .guests button {
+  width: 30%;
   background: transparent;
   border: none;
   outline: none;
@@ -41,7 +30,37 @@ p.error {
   color: yellow;
 }
 
-.final button {
+.save a.btn {
+  width: 15%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid yellow;
+  border-radius: 40px;
+  font-size: 16px;
+  color: yellow;
+  text-decoration: none;
+  text-align: center;
+  padding: 5px 10px 5px 10px;
+
+}
+
+.commentadded a.btn {
+  width: 15%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid yellow;
+  border-radius: 40px;
+  font-size: 16px;
+  color: yellow;
+  text-decoration: none;
+  text-align: center;
+  padding: 5px 10px 5px 10px;
+
+}
+
+.btn {
   width: 100%;
   background: transparent;
   border: none;
@@ -52,8 +71,8 @@ p.error {
   color: yellow;
 }
 
-.existingevent button {
-  width: 100%;
+.search button {
+  width: 180%;
   background: transparent;
   border: none;
   outline: none;
@@ -61,6 +80,7 @@ p.error {
   border-radius: 40px;
   font-size: 16px;
   color: yellow;
+  padding: 10px 10px 10px 10px;
 }
 
 body {
@@ -151,7 +171,7 @@ body.newevent {
 }
 
 body.search {
-  background-image: url("../images/moonrise-kingdom.jpg");
+  background-image: url("../images/millennium-mambo.jpg");
   background-size: cover;
 }
 
@@ -212,7 +232,7 @@ body.country {
 }
 
 body.select {
-  background-image: url("../images/millennium-mambo.jpg");
+  background-image: url("../images/taipei-story.jpg");
   background-size: cover;
 }
 
