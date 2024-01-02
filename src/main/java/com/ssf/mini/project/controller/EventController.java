@@ -62,8 +62,6 @@ public class EventController {
     @GetMapping("/guests")
     public String showGuestForm(Model model) {
         model.addAttribute("user", new User());
-        List<User> eventMembers = new ArrayList<>();
-        model.addAttribute("eventMembers", eventMembers);
         return "guests";
     }
 
