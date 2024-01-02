@@ -55,7 +55,17 @@
             <br />
             <a
               th:href="@{/select/{movieName}(movieName=${movie.title})}"
-              style="font-family: 'Roboto', sans-serif; color: yellow"
+              style="
+                font-family: 'Roboto', sans-serif;
+                color: yellow;
+                background: transparent;
+                outline: none;
+                border: 2px solid yellow;
+                border-radius: 40px;
+                text-decoration: none;
+                padding: 5px 10px 5px 10px;
+                font-size: 16px;
+              "
             >
               Select
             </a>

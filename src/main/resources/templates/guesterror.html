@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>Guest Error</title>
-</head>
-<body class="guesterror">
+  </head>
+  <body class="guesterror">
     <div>
-        <p>You do not have guests, <a href="/guests">invite them!</a></p>
+      <form method="GET" action="/guests">
+        <h3>You don't have any guests</h3>
+        <button class="btn" type="submit">Invite them</button>
+      </form>
     </div>
     <footer>
-        <p>Still from Eat Drink Man Woman (Ang Lee, 1994)</p>
-      </footer>
-</body>
+      <p>Still from Eat Drink Man Woman (Ang Lee, 1994)</p>
+    </footer>
+  </body>
 </html>

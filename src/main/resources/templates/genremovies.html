@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies by Genre</title>
     <a
-    href="/logout"
-    class="button"
-    style="
-      background: transparent;
-      border: none;
-      outline: none;
-      border: 1px solid yellow;
-      border-radius: 15px;
-      font-size: 12px;
-      padding: 5px 10px 5px 10px;
-      color: yellow;
-      text-decoration: none;
-      float: right;
-    "
-    >Logout</a
-  >
+      href="/logout"
+      class="button"
+      style="
+        background: transparent;
+        border: none;
+        outline: none;
+        border: 1px solid yellow;
+        border-radius: 15px;
+        font-size: 12px;
+        padding: 5px 10px 5px 10px;
+        color: yellow;
+        text-decoration: none;
+        float: right;
+      "
+      >Logout</a
+    >
   </head>
   <body
     class="titlemovies"
@@ -55,7 +55,17 @@
             <br />
             <a
               th:href="@{/select/{movieName}(movieName=${movie.title})}"
-              style="font-family: 'Roboto', sans-serif; color: yellow"
+              style="
+                font-family: 'Roboto', sans-serif;
+                color: yellow;
+                background: transparent;
+                outline: none;
+                border: 2px solid yellow;
+                border-radius: 40px;
+                text-decoration: none;
+                padding: 5px 10px 5px 10px;
+                font-size: 16px;
+              "
             >
               Select
             </a>
